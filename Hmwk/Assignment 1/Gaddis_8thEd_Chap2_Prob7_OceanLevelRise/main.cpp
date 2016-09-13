@@ -22,8 +22,8 @@ int main(int argc, char** argv) {
           sLvl5,        // Sea level rise in 5 years in Millimeters
           sLvl7,        // Sea level rise in 7 years in Millimeters
           sLvl10;       // Sea level rise in 10 years in Millimeters
-    int nYear1=5, nYear2=7, nYear3=10, // Number of years to calculate rise
-        nYrBch; // Number of year before your home is beach front property
+    char nYear1=5, nYear2=7, nYear3=10; // Number of years to calculate rise
+    int nYrBch; // Number of year before your home is beach front property
     float elevRiv=860.0f; //Elevation of Riverside in feet according to wikipedia
     
     // Calculations: 
@@ -34,9 +34,9 @@ int main(int argc, char** argv) {
     
     // Output : 
     cout << "Rate of sea level rise = " << mmYear << " mm" << endl;
-    cout << "Sea levels will rise " << sLvl5 << "mm in 5 years" << endl;
-    cout << "Sea levels will rise " << sLvl7 << "mm in 7 years" << endl;
-    cout << "Sea levels will rise " << sLvl10 << "mm in 10 years" << endl;
+    cout << "Sea levels will rise " << sLvl5 << "mm in "<< static_cast<int>(nYear1) << " years" << endl;
+    cout << "Sea levels will rise " << sLvl7 << "mm in "<< static_cast<int>(nYear2) << " years" << endl;
+    cout << "Sea levels will rise " << sLvl10 << "mm in "<< static_cast<int>(nYear3) << " years" << endl;
     cout << "At this rate Riverside won't have beach front property for " << nYrBch << " years" << endl;
     cout << "This rise equates to " << nYrBch*mmYear/CNVMMM << " meters" << endl;
     
