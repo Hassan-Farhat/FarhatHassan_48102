@@ -11,6 +11,9 @@ using namespace std;  //Name-space used in the System Library
 //User Libraries
 
 //Global Constants
+const unsigned char CNVQC = 25; // Conversion from quarters to cents
+const unsigned char CNVDC = 10; // Conversion from dimes to cents
+const unsigned char CNVNC = 5; // Conversion from nickels to cents
 
 //Function prototypes
 
@@ -34,9 +37,9 @@ int main(int argc, char** argv) {
     cin >> nickels;
     
     //Process values -> Map inputs to Outputs
-    cqrt = quarter * 25;
-    cdim = dimes * 10;
-    cnck = nickels * 5;
+    cqrt = quarter * CNVQC;
+    cdim = dimes * CNVDC;
+    cnck = nickels * CNVNC;
     cents = cqrt + cdim + cnck;
     
     //Display Output
