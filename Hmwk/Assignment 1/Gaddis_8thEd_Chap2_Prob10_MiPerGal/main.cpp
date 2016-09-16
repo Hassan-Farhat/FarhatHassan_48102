@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
                    maxDist = 375, // Maximum distance in miles
                    mpg; // Miles per gallon
     
-    //Process values
+    //Calculate the mpg 
     mpg = maxDist / galTank;
    
     //Display Output

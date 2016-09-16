@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     cout << "Input number of nickels :" << endl;
     cin >> nickels;
     
-    //Process values -> Map inputs to Outputs
+    //Converting quarters, dimes, and nickels into cent:
     cqrt = quarter * CNVQC;
     cdim = dimes * CNVDC;
     cnck = nickels * CNVNC;

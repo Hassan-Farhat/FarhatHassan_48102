@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     unsigned short tip = 20;            //Tip Percentage
     float amntTax, mealwT, amntTip, totBill; //Tax amount, Price of Meal with Tax, Tip amount,Total bill
     
-    //Calculations:
+    //Calculating tax, price of the meal with tax, tip, and total bill:
     amntTax = mealChg * tax / PERCENT;
     mealwT = amntTax + mealChg;
     amntTip = mealwT * tip / PERCENT;

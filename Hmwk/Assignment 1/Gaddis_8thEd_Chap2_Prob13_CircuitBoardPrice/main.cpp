@@ -1,10 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on September 7, 2016, 7:31 PM
@@ -22,11 +16,11 @@ const unsigned char  PERCENT = 100;
 // Program execution begins here!
 int main(int argc, char** argv) {
     // Declare and initialize variables
-    float crCost = 14.95;        // Cost of Circuit Board production
+    float crCost = 14.95f;        // Cost of Circuit Board production
     unsigned char pProfit = 35;  // Percent profit
     float sPrice, pAmnt;         // Selling price, Profit amount
     
-    // Calculations:
+    // Calculate the Profit amount and sales price:
     pAmnt = crCost * pProfit / 100;
     sPrice = pAmnt + crCost;
     

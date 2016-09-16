@@ -22,10 +22,10 @@ int main(int argc, char** argv) {
     float feet = 391876; // Size of land in square feet
     float acre; // Size of land in acres
    
-    //Process values -> Map inputs to Outputs
+    //Calculating how many acres
     acre = feet / CFACTOR;
     //Display Output
-    cout << "Size of land in square feet = " << feet << "square feet" << endl;
+    cout << "Size of land in square feet = " << feet << " ft^2" << endl;
     cout << "Number of acres = " << acre << " ac" << endl;
     //Exit Program
     return 0;
