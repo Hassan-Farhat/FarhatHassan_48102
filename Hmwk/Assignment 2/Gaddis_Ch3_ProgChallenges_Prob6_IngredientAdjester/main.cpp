@@ -7,6 +7,7 @@
 
 //System Libraries
 #include <iostream>   //Input/Output objects
+#include <iomanip>
 using namespace std;  //Name-space used in the System Library
 
 //User Libraries
@@ -18,7 +19,8 @@ using namespace std;  //Name-space used in the System Library
 //Execution Begins Here!
 int main(int argc, char** argv) {
     //Declaration of Variables
-    float sugar = 1.5f, butter = 1f, flour = 2.75, stAmnt = 48; // Sugar, butter, and flour required to make a standard batch of 48 cookies
+    float sugar = 1.5f, butter = 1.0f, flour = 2.75f; // Sugar, butter, and flour required to make a standard batch of 48 cookies
+    int stAmnt = 48; // Standard amount of cookies in recipe
     int cookies; // Amount of cookies to be made (user input)
     float adjSgr, adjBttr, adjFlr; // Adjusted amount of sugar, butter, and flour
     
@@ -28,9 +30,14 @@ int main(int argc, char** argv) {
             
     //Calculating the adjustments:
     adjSgr = (sugar  * cookies)/ stAmnt ; 
-    adjSgr = (sugar  * cookies)/ stAmnt ;
+    adjBttr = (butter  * cookies)/ stAmnt ;
+    adjFlr = (flour * cookies)/ stAmnt ;
     
     //Display Output
+    cout << setprecision(2) << fixed;
+    cout << adjSgr << "cups of sugar" << endl;
+    cout << adjBttr << "cups of Butter" << endl;
+    cout << adjFlr << "cups of Flour" << endl;
 
     //Exit Program
     return 0;

@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=CppApplication_1
+PROJECTNAME=Gaddis_Ch3_ProgChallenges_Prob7_BoxOfiice
 
 # Active Configuration
 DEFAULTCONF=Debug
