@@ -12,6 +12,7 @@ using namespace std;  //Name-space used in the System Library
 //User Libraries
 
 //Global Constants
+    float acc = 32.174f; // acceleration in feet per second (Gravity)
 
 //Function prototypes
 
@@ -20,16 +21,15 @@ int main(int argc, char** argv) {
     //Declaration of Variables
     float time, // How many seconds the object is in free fall
           dist; // Distance
-    unsigned char acc = 32; // acceleration in feet per second (Gravity)
     
     //Input values
     cout << "Input how long the object should fall :" << endl;
     cin >> time;
     
-    //Process values -> Map inputs to Outputs
+    //Calculate the distance the object fell:
     dist = (acc *(time * time)) / 2;
     
-    //Display Output
+    //Display Output:
     cout << "The object fell for " << time << "s" << endl;
     cout << "The acceleration due gravity = " << static_cast<int>(acc) << "ft/s" << endl;
     cout << "The the distance the object fell = " << dist << " feet" << endl;
