@@ -39,13 +39,13 @@ int main(int argc, char** argv) {
     amntPDt = gBOPrft - nBOPrft;
     
     //Display Output
-    cout << "Movie Name:" << setw(40) << movie << endl;
+    cout << "Movie Name:        " << setw(28) << movie << endl;
     cout << setprecision(2) << fixed;
     cout << "Adult Tickets Sold:" << setw(28) << aTcktS << endl;
     cout << "Child Tickets Sold:" << setw(28) << cTcktS << endl;
-    cout << "Gross Box Office Profit:" << setw(26) << gBOPrft << endl;
-    cout << "Net Box Office Profit:" << setw(28) << nBOPrft << endl;
-    cout << "Amount Paid to Distributer:" << setw(23) << amntPDt << endl;
+    cout << "Gross Box Office Profit:   " << setw(20) << gBOPrft << endl;
+    cout << "Net Box Office Profit:     " << setw(20) << nBOPrft << endl;
+    cout << "Amount Paid to Distributer:" << setw(20) << amntPDt << endl;
 
     //Exit Program
     return 0;
