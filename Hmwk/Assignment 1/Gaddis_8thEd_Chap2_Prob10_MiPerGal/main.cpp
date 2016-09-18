@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on September 9, 2016, 6:37 PM
- * Purpose : Calculate the miles per gallon of a car
+ * Purpose : Calculate the miles per gallon of a car.
  */
 
 //System Libraries

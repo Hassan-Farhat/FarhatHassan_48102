@@ -4,6 +4,7 @@
  * Created on September 6, 2016, 7:18 PM
  * Purpose : Calculate and display the total cost of a restaurant meal.
  */
+
 // Include system level libraries
 #include <iostream>  //Input/Output Libraries
 using namespace std; //Libraries compiled under standard namespace

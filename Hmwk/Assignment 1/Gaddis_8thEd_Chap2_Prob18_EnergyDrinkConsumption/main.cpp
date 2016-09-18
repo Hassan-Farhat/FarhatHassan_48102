@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on September 7, 2016, 6:57 PM
- * Purpose : Calculate the amount of people who drink energy drinks.
+ * Purpose : Calculate the amount of people who drink energy drinks and the amount who prefer citrus flavored drinks.
  */
 // Include system level libraries
 #include <iostream>  //Input/Output Libraries

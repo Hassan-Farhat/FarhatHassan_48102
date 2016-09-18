@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on September 9, 2016, 4:51 PM
- * Purpose : Convert quarters, dimes and nickels into cents 
+ * Purpose : Convert quarters, dimes and nickels into cents. 
  */
 //System Libraries
 #include <iostream>   //Input/Output objects
@@ -13,7 +13,7 @@ using namespace std;  //Name-space used in the System Library
 //Global Constants
 const unsigned char CNVQC = 25; // Conversion from quarters to cents
 const unsigned char CNVDC = 10; // Conversion from dimes to cents
-const unsigned char CNVNC = 5; // Conversion from nickels to cents
+const unsigned char CNVNC = 5;  // Conversion from nickels to cents
 
 //Function prototypes
 

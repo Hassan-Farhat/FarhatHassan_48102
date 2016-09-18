@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on September 7, 2016, 7:31 PM
- * Purpose : Calculate the amount of profit of circuit board sales
+ * Purpose : Calculate the amount of profit of circuit board sales.
  */
 // Include system level libraries
 #include <iostream>  //Input/Output Libraries

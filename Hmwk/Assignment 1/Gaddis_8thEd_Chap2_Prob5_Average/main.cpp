@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on September 13, 2016, 12:27 PM
- * Purpose : Calculate Average/Mean and Standard Deviation
+ * Purpose : Calculate Average/Mean and Standard Deviation.
  */
 //System Libraries
 #include <iostream>   //Input/Output objects
@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
     stdev = pow(((x1-avg)*(x1-avg)+(x2-avg)*(x2-avg)+(x3-avg)*(x3-avg)+(x4-avg)*(x4-avg)+(x5-avg)*(x5-avg))/4,0.5);
     
     //Display Output
-    cout<< "The Input Values = " << x1 << x2 << x3 << x4 << x5;
+    cout<< "The Input Values = " << x1 << x2 << x3 << x4 << x5 << endl;
     cout<< "The mean = "<<avg<<endl;
     cout<< "The standard deviation = "<<stdev<<endl;
     

@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on September 6, 2016, 8:29 PM
- * Purpose : Calculate the annual pay
+ * Purpose : Calculate the annual pay.
  */
 // Include system level libraries
 #include <iostream>  //Input/Output Libraries

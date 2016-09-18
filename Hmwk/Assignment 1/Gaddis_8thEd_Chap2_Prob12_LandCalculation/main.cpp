@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on September 10, 2016, 6:21 PM
- * Purpose : Convert square feet to acres
+ * Purpose : Convert square feet to acres.
  */
 
 //System Libraries

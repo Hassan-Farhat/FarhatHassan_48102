@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on September 9, 2016, 5:21 PM
- * Purpose : Calculate how far an object would fall
+ * Purpose : Calculate how far an object would fall.
  */
 
 //System Libraries

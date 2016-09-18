@@ -3,7 +3,7 @@
  * Author: Hassan Farhat
  * Created on September 13, 2016, 11:55 AM
  * Purpose : How many millimeters will the ocean level rise in 5, 7, and 10 years time,
-             calculate when riverside homeowners will have beach front property
+             calculate when riverside homeowners will have beach front property.
  */
 // Include system level libraries
 #include <iostream>  //Input/Output Libraries

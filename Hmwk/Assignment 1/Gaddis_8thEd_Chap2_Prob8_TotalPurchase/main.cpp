@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on September 9, 2016, 6:10 PM
- * Purpose : Calculate and display the prices of a purchase.
+ * Purpose : Calculate and display the prices of a purchase, the tan and the total cost.
  */
 
 //System Libraries
