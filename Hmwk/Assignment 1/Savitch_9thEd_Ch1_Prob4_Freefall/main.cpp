@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
     
     //Display Output:
     cout << "The object fell for " << time << "s" << endl;
-    cout << "The acceleration due gravity = " << static_cast<int>(acc) << "ft/s" << endl;
+    cout << "The acceleration due gravity = " << acc << "ft/s^2" << endl;
     cout << "The the distance the object fell = " << dist << " feet" << endl;
     
     //Exit Program
