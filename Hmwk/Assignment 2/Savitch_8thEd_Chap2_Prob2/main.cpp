@@ -6,10 +6,10 @@
  */
 //System Libraries
 #include <iostream>   //Input/Output objects
-#include <iomanip>
-#include <cmath>
-#include <ctime>
-#include <cstdlib>
+#include <iomanip>    //Formate output
+#include <cmath>      //Square root function
+#include <ctime>      //Time to set random number seed
+#include <cstdlib>    //Random number seed
 using namespace std;  //Name-space used in the System Library
 
 //User Libraries
