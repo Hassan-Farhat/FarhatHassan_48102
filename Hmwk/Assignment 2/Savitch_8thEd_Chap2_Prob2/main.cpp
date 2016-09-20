@@ -1,6 +1,6 @@
 /*
  * File:   main.cpp
- * Author: rcc
+ * Author: Hassan Farhat
  * Created on September 20, 2016, 11:29 AM
  * Purpose : Iteration to find the square root
  */
