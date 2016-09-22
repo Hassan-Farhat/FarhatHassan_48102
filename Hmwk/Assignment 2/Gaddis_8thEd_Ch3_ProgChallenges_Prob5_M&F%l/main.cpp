@@ -13,7 +13,7 @@ using namespace std;  //Name-space used in the System Library
 //User Libraries
 
 //Global Constants
-
+const unsigned char CONSTANT = 100;
 //Function prototypes
 
 //Execution Begins Here!
@@ -30,8 +30,8 @@ int main(int argc, char** argv) {
     
     //Calculate the Percent male to female
     tPeople = male + female;
-    pMale = static_cast <float> (male)/tPeople;
-    pFemale = static_cast <float> (female)/tPeople;
+    pMale = static_cast <float> (male)/tPeople * CONSTANT;
+    pFemale = static_cast <float> (female)/tPeople * CONSTANT;
     
     //Display Output
     cout << setprecision(2) << fixed;
