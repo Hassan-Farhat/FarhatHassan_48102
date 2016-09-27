@@ -23,8 +23,8 @@ int main(int argc, char** argv) {
      srand(static_cast<unsigned int>(time(0)));
     
     //Declaration of Variables
-     unsigned short x,
-                    y,
+     unsigned short x, //First random number
+                    y, //Second random number
                     sum,
                     answer;
      
