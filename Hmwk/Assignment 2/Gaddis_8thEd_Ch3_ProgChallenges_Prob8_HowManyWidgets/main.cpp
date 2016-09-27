@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Faraht
  * Created on September 17, 2016, 2:07 PM
- * Purpose : Calculate the number of widgets
+ * Purpose : Calculate the number of widgets.
  */
 
 //System Libraries
@@ -19,8 +19,9 @@ using namespace std;  //Name-space used in the System Library
 //Execution Begins Here!
 int main(int argc, char** argv) {
     //Declaration of Variables
-    float wWidget = 12.5f, // Weight of a widget in pounds
-          nWidget, wPallet, tWeight; // Number of widgets, weight of pallet, and total weigh (all in pounds)
+    float wWidget = 12.5f,  // Weight of a widget in pounds
+          wPallet, tWeight; //Weight of pallet, and total weigh (all in pounds)
+    int nWidget;            //Number of Widgets
     
     //Input values
     cout << "Enter the weight of pallet:" << endl;
@@ -29,7 +30,7 @@ int main(int argc, char** argv) {
     cin >> tWeight;
     
     //Calculate the number of widgets :
-    nWidget = (tWeight - wPallet) / wWidget; 
+    nWidget = (tWeight - wPallet) / wWidget; // If answer will round down meaning only whole number of widgets are accepted
     
     //Display Output
     cout << setprecision(1) << fixed;

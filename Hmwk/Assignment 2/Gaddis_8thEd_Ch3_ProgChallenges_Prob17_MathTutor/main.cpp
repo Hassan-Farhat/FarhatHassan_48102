@@ -1,14 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
  * File:   main.cpp
- * Author: Hassan
- *
+ * Author: Hassan Farhat
  * Created on September 21, 2016, 8:03 PM
+ * Purpose : Simple addition math tutor
  */
 
 //System Libraries
@@ -29,13 +23,29 @@ int main(int argc, char** argv) {
      srand(static_cast<unsigned int>(time(0)));
     
     //Declaration of Variables
-    
-    //Input values
-    
+     unsigned short x,
+                    y,
+                    sum,
+                    answer;
+     
     //Process values -> Map inputs to Outputs
+    x = rand()%900 + 100;
+    y = rand()%900 + 100;
+    sum = x+y;
+            
+    //Display question
+    cout << "    " << x << endl;
+    cout << "  + " << y << endl;
+    cout << "  -------" << endl;
     
-    //Display Output
-
+    //Input values:
+    cout << "Enter answer:" << endl;
+    cin >> answer;
+    
+    //Display output
+    cout << "You answer was " << (answer == sum?"Correct":"Incorrect") << endl;
+    cout << "The answer is " << sum << endl;
+            
     //Exit Program
     return 0;
 }

@@ -1,8 +1,8 @@
 /*
  * File:   main.cpp
- * Author: Hassan
+ * Author: Hassan Farhat
  * Created on September 17, 2016, 2:59 PM
- * Purpose : Calculate the monthly sales tax
+ * Purpose : Calculate the monthly sales tax.
  */
 
 //System Libraries
@@ -46,13 +46,13 @@ int main(int argc, char** argv) {
     cout << setprecision(2) << fixed;
     cout << "--------------------------"<< endl;
     cout << "Year : " << year << endl; 
-    cout << "Month :" << month << endl;
+    cout << "Month: " << month << endl;
     cout << "--------------------------" << endl;
-    cout << "Total Collected:  " << setw(5) << "$ " << setw(8) << totAmntC << endl; 
-    cout << "Sales:            " << setw(5) << "$ " << setw(8) << sales << endl;  
-    cout << "Country Sales Tax:" << setw(5) << "$ " << setw(8) << cSTax << endl;  
-    cout << "State Sales Tax:  " << setw(5) << "$ " << setw(8) << sSTax << endl;
-    cout << "Total Sales Tax:  " << setw(5) << "$ " << setw(8) << tSTax << endl;  
+    cout << "Total Collected:  " << setw(5) << "$ " << setw(10) << totAmntC << endl; 
+    cout << "Sales:            " << setw(5) << "$ " << setw(10) << sales << endl;  
+    cout << "Country Sales Tax:" << setw(5) << "$ " << setw(10) << cSTax << endl;  
+    cout << "State Sales Tax:  " << setw(5) << "$ " << setw(10) << sSTax << endl;
+    cout << "Total Sales Tax:  " << setw(5) << "$ " << setw(10) << tSTax << endl;  
     //Exit Program
     return 0;
 }

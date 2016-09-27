@@ -1,6 +1,6 @@
 /*
  * File:   main.cpp
- * Author: Hassan
+ * Author: Hassan Farhat
  * Created on September 16, 2016, 7:10 PM
  * Purpose : Male and Female Percentage of a class
  */
@@ -34,9 +34,9 @@ int main(int argc, char** argv) {
     pFemale = static_cast <float> (female)/tPeople * CONSTANT;
     
     //Display Output
-    cout << setprecision(2) << fixed;
-    cout << "The total number of people = " << setw(1) << tPeople << endl;
-    cout << "The percentage of male students = " << setw(1) << pMale << "%" << endl;
+    cout << setprecision(2) << fixed << showpoint;
+    cout << "The total number of people =        " << setw(1) << tPeople << endl;
+    cout << "The percentage of male students =   " << setw(1) << pMale << "%" << endl;
     cout << "The percentage of female students = " << setw(1) << pFemale << "%" << endl;
     //Exit Program
     return 0;

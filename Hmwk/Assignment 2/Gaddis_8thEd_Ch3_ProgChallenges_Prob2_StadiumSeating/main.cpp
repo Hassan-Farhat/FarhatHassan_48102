@@ -1,6 +1,6 @@
 /*
  * File:   main.cpp
- * Author: Hassan
+ * Author: Hassan Farhat
  * Created on September 16, 2016, 5:34 PM
  * Purpose : Calculate the amount of income generated
  */

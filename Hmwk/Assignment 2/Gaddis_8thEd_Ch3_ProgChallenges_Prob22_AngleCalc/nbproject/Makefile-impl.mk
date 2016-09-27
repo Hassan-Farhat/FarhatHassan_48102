@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=Gaddis_8thEd_ProgChallenges_Prob22_AngleCalc
+PROJECTNAME=Gaddis_8thEd_Ch3_ProgChallenges_Prob22_AngleCalc
 
 # Active Configuration
 DEFAULTCONF=Debug

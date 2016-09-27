@@ -1,6 +1,6 @@
 /*
  * File:   main.cpp
- * Author: Hassan
+ * Author: Hassan Farhat
  * Created on September 16, 2016, 6:43 PM
  * Purpose : Calculate the amount of average rainfall
  */

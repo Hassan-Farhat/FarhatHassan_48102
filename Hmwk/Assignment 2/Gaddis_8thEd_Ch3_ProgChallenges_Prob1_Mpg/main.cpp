@@ -1,6 +1,6 @@
 /*
  * File:   main.cpp
- * Author: Hassan
+ * Author: Hassan Farhat
  * Created on September 16, 2016, 5:14 PM
  * Purpose : Calculate mpg with user entered variables 
  */
@@ -21,16 +21,16 @@ int main(int argc, char** argv) {
     float mpg;           //The mpg
     
     //Input values
-    cout << "Please enter an integer value for the number of gallons it take to fill up your car:";
+    cout << "Please enter an integer value for the number of gallons it take to fill up your car: ";
     cin >> galTank;
-    cout << "Please enter an integer value for the number of miles your car can go on a full tank of gas:";
+    cout << "Please enter an integer value for the number of miles your car can go on a full tank of gas: ";
     cin >> tMiles;
     
     //Calculate the mpg:
     mpg = static_cast<float> (tMiles)/galTank;
     
     //Display Output
-    cout << "The miles per gallon =" << mpg << endl;
+    cout << "The miles per gallon = " << mpg << " Mpg" << endl;
             
     //Exit Program
     return 0;

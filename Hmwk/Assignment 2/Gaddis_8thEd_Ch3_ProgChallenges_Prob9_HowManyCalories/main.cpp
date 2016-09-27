@@ -1,6 +1,6 @@
 /*
  * File:   main.cpp
- * Author: Hassan
+ * Author: Hassan Farhat
  * Created on September 17, 2016, 2:23 PM
  * Purpose : Calculate the amount of calories were eaten by the User
  */
@@ -37,9 +37,9 @@ int main(int argc, char** argv) {
     numCals = numCkie * calPC;
     
     //Display Output
-    cout << "The calories per cookie :        " << setw (7) << calPC << endl;
-    cout << "The number of cookies you ate :  " << setw(7) << numCkie << endl;
-    cout << "The number of calories you ate : " << setw(7) << numCals <<endl;
+    cout << "The calories per cookie :        " << calPC << endl;
+    cout << "The number of cookies you ate :  " << numCkie << endl;
+    cout << "The number of calories you ate : " << numCals <<endl;
     //Exit Program
     return 0;
 }
