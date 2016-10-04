@@ -24,20 +24,23 @@ int main(int argc, char** argv) {
     //Input values
     cout << "Enter a month in number form (1-12): ";
     cin >> month;
-    cout << "Enter a year: ";
+    cout << "Enter a year (1500 - 3000): ";
     cin >> year;
     
     //Process values -> Map inputs to Outputs
+    if ((1500 > year || year > 3000) || (1 < month || month > 12)){
+        cout << "Bad year please input a year between 1500 to 3000 or you entered a Bad month" << endl; 
+    }
     if (((year % 100 == 0) && (year % 400 == 0)) && (month == 2)){
-        cout << "28 days" << endl;
-    }
-    else if (((year % 100 != 0) && (year % 4 == 0)) && (month == 2)){
-        cout << "28 days" << endl;
-    }
-    else if (month == 2){
         cout << "29 days" << endl;
     }
-    else if (month <= 7){
+    else if (((year % 100 != 0) && (year % 4 == 0)) && (month == 2)){
+        cout << "29 days" << endl;
+    }
+    else if (month == 2){
+        cout << "28 days" << endl;
+    }
+    else if ( 1 <= month && month <= 7){
         if (month % 2 == 0){
             cout << "30 days" << endl;
         }
@@ -54,7 +57,7 @@ int main(int argc, char** argv) {
         }
     }
     else {
-        cout << "You entered a number greater than 12" << endl;
+        cout << "You entered a number greater or less than 12" << endl;
     }
     
     //Display Output
