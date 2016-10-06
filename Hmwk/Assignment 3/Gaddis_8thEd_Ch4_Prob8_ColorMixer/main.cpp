@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
         cout << "Mixing red and yellow will make orange." << endl;
     }
     else if ( (color1 == "blue" && color2 == "yellow") || (color1 == "yellow" && color2 == "blue") ){
-        cout << "Mixing yellow and blue will make orange." << endl;
+        cout << "Mixing yellow and blue will make green." << endl;
     }
     else 
         cout << "You did not enter a primary color or you capitalized." << endl;
