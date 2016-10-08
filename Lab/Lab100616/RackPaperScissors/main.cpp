@@ -44,8 +44,8 @@ int main(int argc, char** argv) {
     }
     
     //Display output:
-    cout << "The computer generates a " << computr << endl;
-    cout << "The player type in a " << rPlay << endl;
+    cout << "The computer plays " << computr << endl;
+    cout << "The player plays " << rPlay << endl;
     
     //Determine the winner
     if(computr == rPlay){
