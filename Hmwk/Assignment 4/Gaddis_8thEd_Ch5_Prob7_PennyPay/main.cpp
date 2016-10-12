@@ -20,15 +20,19 @@ using namespace std;  //Name-space used in the System Library
 int main(int argc, char** argv) {
     //Declaration of Variables
     float dollars;
-    int cents=1; 
+    unsigned int cents=1;
     unsigned short k;
     
     //Input values
-    cout << "Input the number of days you will get paid:" << endl;
+    cout << "Input the number of days you will get paid (please not more than 31 days):" << endl;
     cin >> k;
     
+    while (k > 31){
+        cout << "You input a number greater than thirty please input again: " << endl;
+        cin >> k;
+    }
     //Process values
-    for (int i=0; i<k; i++){
+    for (int i=2; i<=k; i++){
         cents = cents * 2;
     }
     

@@ -18,8 +18,8 @@ using namespace std;  //Name-space used in the System Library
 //Execution Begins Here!
 int main(int argc, char** argv) {
     //Declaration of Variables
-    float dist, speed;    //Distance, speed of the train 
-    int i, numhr;         //Loop counter and number of hours traveled
+    float dist, speed;    //Distance, speed of the train (in miles and mpr respectively)
+    int numhr;         //Loop counter and number of hours traveled
     
     //Input values
     cout << "What was the speed of the train?" << endl;
@@ -28,10 +28,10 @@ int main(int argc, char** argv) {
     cin >> numhr;
     
     //Process values and display output
-     cout << "--------------------" << endl;
-    for(i=1;i<=numhr;i++){
+     cout << "-----------------------------" << endl;
+    for(int i=1;i<=numhr;i++){
         dist = speed * i;
-        cout << i << "             " << dist << endl;
+        cout << "Hour : " << i << "             " << dist << " mi" << endl;
     }
 
     //Exit Program

@@ -31,5 +31,6 @@ int main(int argc, char** argv) {
         }
     }
     //Exit Program
+    cout << endl;
     return 0;
 }

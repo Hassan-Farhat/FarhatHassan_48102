@@ -48,7 +48,9 @@ int main(int argc, char** argv) {
     }
             
     //Process values and Display Output
-    for (int i=1; i<=numDays; i++){
+    cout << "The population of day 1 is " << pop << " Organisms" << endl;
+    
+    for (int i=2; i<=numDays; i++){
         inPop = pop * popinc;
         pop = inPop + pop;
         cout << "The population of day " << i << " is " << pop << " Organisms"  << endl;

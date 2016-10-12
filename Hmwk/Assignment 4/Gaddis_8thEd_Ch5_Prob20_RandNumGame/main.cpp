@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
         i=0;                //The counter
     
     //Process values
-    cout << "Please input you first guess:";
+    cout << "This is a random number game type in your first guess: ";
     cin >> num;
     while (num != x){
         i++;
@@ -36,13 +36,9 @@ int main(int argc, char** argv) {
             cout << "Too low, try again" << endl;
             cin >> num;
         }
-        else if (num > x){
+        else{
             cout << "Too high, try again" << endl;
             cin >> num;
-        }
-        else if (num == -1){ 
-            cout << "You gave up good luck next time" << endl;
-            cout << "The correct answer was = " << endl;
         }
     }
     //Display Output

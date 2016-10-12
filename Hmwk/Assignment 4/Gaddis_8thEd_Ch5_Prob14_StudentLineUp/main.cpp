@@ -34,33 +34,19 @@ int main(int argc, char** argv) {
     }
     
     //Process variables (loops) and Display output
-    if (nStudnt == 1){
-        cout << "You one have one student and please input their name" << endl;
+    cout << "Please enter the first names of your students (one at a time)" << endl;
+    cin >> name;
+    fName = name;
+    lName = name;
+    
+    for (int i=2; i<=nStudnt; i++){
+        cout << "Please enter the first names of your students (one at a time)" << endl;
         cin >> name;
-        cout << "Your only student is : "<< name << endl;
-    }
-    for (int i=1; i<=nStudnt; i++){
-        cout << "Please enter the first name of your students (lower case only) (one at a time)" << endl;
-        cin >> name;
-        if (i==1){
+        if ((name < fName)){
             fName = name;
         }
-        else if (i==2){
-            if (name < fName){
-                lName = fName;
-                fName = name;
-            }
-            else {
-                lName = name;
-            }
-        }
-        else {
-            if ((name < fName)){
-                fName = name;
-            }
-            else if (name > lName){
-                lName = name;
-            }
+        else if (name > lName){
+            lName = name;
         }
     }
     cout << "The First student will be : " << fName << endl;

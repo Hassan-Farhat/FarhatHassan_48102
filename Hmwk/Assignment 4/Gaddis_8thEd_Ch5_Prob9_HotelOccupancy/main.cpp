@@ -22,7 +22,6 @@ int main(int argc, char** argv) {
     unsigned short numFlrs,   //Number of floors 
                    numRoom,   //Number of rooms on each floor
                    numOcc,    //Number of occupied rooms
-                   i=1,       //Loop counter
                    totRoom=0, //Total number of rooms
                    totOcc=0;  //Total number of occupied rooms
     float perOcc;             //Number of rooms occupied
@@ -32,7 +31,7 @@ int main(int argc, char** argv) {
     cin >> numFlrs;
     
     //Processing values: Loop, calculations:
-    while (i<=numFlrs){
+    for (int i = 1; i <= numFlrs; i++){
         if (i==13) {
             i++;
         }
@@ -48,7 +47,6 @@ int main(int argc, char** argv) {
         }
         totRoom+=numRoom;
         totOcc+=numOcc;
-        i++;
         }
     }
     perOcc = static_cast<float> (totOcc)/totRoom * 100;
