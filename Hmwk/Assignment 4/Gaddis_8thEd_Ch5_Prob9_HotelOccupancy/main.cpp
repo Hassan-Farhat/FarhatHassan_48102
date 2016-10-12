@@ -34,17 +34,15 @@ int main(int argc, char** argv) {
     for (int i = 1; i <= numFlrs; i++){
         if (i==13) {
             i++;
-        }
-        else{
+            }
         cout << "Floor " << i << endl;
         cout << "Input number of rooms:" << endl;
         cin >> numRoom;
         cout << "Input number of rooms occupied" << endl;
         cin >> numOcc;
         while (numOcc > numRoom){
-            cout << "Impossible entry please reinput number of occupied rooms :" << endl;
-            cin >> numOcc;
-        }
+        cout << "Impossible entry please re-input number of occupied rooms :" << endl;
+        cin >> numOcc;
         totRoom+=numRoom;
         totOcc+=numOcc;
         }
