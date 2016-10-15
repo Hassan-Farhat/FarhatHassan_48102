@@ -7,6 +7,7 @@
 
 //System Libraries
 #include <iostream>   //Input/Output objects
+#include <iomanip>
 using namespace std;  //Name-space used in the System Library
 
 //User Libraries
@@ -19,7 +20,7 @@ using namespace std;  //Name-space used in the System Library
 int main(int argc, char** argv) {
     //Declaration of Variables
     float dist, speed;    //Distance, speed of the train (in miles and mpr respectively)
-    int numhr;         //Loop counter and number of hours traveled
+    int numhr;            //Number of hours traveled
     
     //Input values
     cout << "What was the speed of the train?" << endl;
@@ -31,7 +32,7 @@ int main(int argc, char** argv) {
      cout << "-----------------------------" << endl;
     for(int i=1;i<=numhr;i++){
         dist = speed * i;
-        cout << "Hour : " << i << "             " << dist << " mi" << endl;
+        cout << "Hour : " << i << setw(10) << dist << " mi" << endl;
     }
 
     //Exit Program

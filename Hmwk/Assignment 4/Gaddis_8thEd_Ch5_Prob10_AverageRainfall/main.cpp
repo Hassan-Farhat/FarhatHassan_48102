@@ -5,10 +5,6 @@
  * Purpose : Calculate the average rain fall over some years
  */
 
-#include <cstdlib>
-
-using namespace std;
-
 //System Libraries
 #include <iostream>   //Input/Output objects
 #include <iomanip>
