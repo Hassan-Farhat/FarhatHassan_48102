@@ -25,13 +25,10 @@ int main(int argc, char** argv) {
     unsigned short nStudnt;
     
     //Input values
-    cout << "Please input the number of students in the class (1 to 25):" << endl;
-    cin >> nStudnt;
-    while ((1>nStudnt) && (nStudnt>25)){
-        cout << "You entered a values that was either less than one or greater than 25." << endl;
-        cout << "Please re-enter the number of students in your class :" << endl;
+    do{
+        cout << "Please input the number of students in the class (1 to 25):" << endl;
         cin >> nStudnt;
-    }
+    }while ((1>nStudnt) || (nStudnt>25));
     
     //Process variables (loops) and Display output
     cout << "Please enter the first names of your students (one at a time)" << endl;

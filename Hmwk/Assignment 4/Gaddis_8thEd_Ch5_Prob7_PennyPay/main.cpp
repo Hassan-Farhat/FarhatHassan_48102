@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on October 8, 2016, 6:26 PM
- * Purpose : Calculate the salary
+ * Purpose : Calculate the income salary after incremental peny pay
  */
 
 //System Libraries
@@ -19,24 +19,24 @@ using namespace std;  //Name-space used in the System Library
 //Execution Begins Here!
 int main(int argc, char** argv) {
     //Declaration of Variables
-    float dollars;
-    unsigned int cents=1;
-    unsigned short k;
+    float dollars;          //Number of dollars
+    unsigned int cents=1;   //Number of cents in the first day
+    unsigned short numDays; //Number of payment days
     
     //Input values
     cout << "Input the number of days you will get paid (please not more than 31 days):" << endl;
-    cin >> k;
+    cin >> numDays;
     
-    while (k > 31){
+    while (numDays > 31){
         cout << "You input a number greater than thirty please input again: " << endl;
-        cin >> k;
+        cin >> numDays;
     }
     //Process values
-    for (int i=2; i<=k; i++){
+    for (int i=2; i<=numDays; i++){
         cents = cents * 2;
     }
     
-    dollars = cents/100.0;
+    dollars = cents/100.0; //Converting cents to dollars
     
     //Display output
     cout << "The total number of cents : " << cents << endl;

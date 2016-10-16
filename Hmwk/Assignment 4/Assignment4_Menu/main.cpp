@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
                 //Declaration of Variables
                 char ch; //(ch) will be used to display the characters
 
-                //Process values and display output
+                //Process values and display output (Loop will literate 128 time to display all ascii characters)
                 for (int i=0;i<=127;i++){
                     ch = i;
                     if (i%16 == 0){
@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
                 float dist, speed;    //Distance, speed of the train (in miles and mpr respectively)
                 int numhr;            //Number of hours traveled
 
-                //Input values
+                //Input values: speed and number of hours
                 cout << "What was the speed of the train?" << endl;
                 cin >> speed;
                 cout << "How hour many hours did the train tavel?" << endl;
@@ -85,26 +85,27 @@ int main(int argc, char** argv) {
             case 3:{
                 cout<<"Inside Problem Gaddis_8thEd_Ch5_Prob7_PennyPay"<<endl;
                 //Declaration of Variables
-                float dollars;
-                unsigned int cents=1;
-                unsigned short k;
+                float dollars;          //Number of dollars at the end of the sequence
+                unsigned int cents=1;   //Number of cents
+                unsigned short numDays; //Number of daily payment periods  
 
                 //Input values
                 cout << "Input the number of days you will get paid (please not more than 31 days):" << endl;
-                cin >> k;
+                cin >> numDays;
 
-                while (k > 31){
-                    cout << "You input a number greater than thirty please input again: " << endl;
-                    cin >> k;
+                while (numDays > 31){
+                    cout << "Please don't input a number greater than 31: " << endl;
+                    cin >> numDays;
                 }
                 //Process values
-                for (int i=2; i<=k; i++){
+                for (int i=2; i<=numDays; i++){
                     cents = cents * 2;
                 }
 
-                dollars = cents/100.0;
+                dollars = cents/100.0; //Convert cents to dollars
 
                 //Display output
+                cout << setprecision(2) << fixed;
                 cout << "The total number of cents : " << cents << endl;
                 cout << "The total dollar amount will be : " << dollars << "$"<< endl;
                 cout << endl;
@@ -178,9 +179,9 @@ int main(int argc, char** argv) {
                 cout<<"Inside Problem Gaddis_8thEd_Ch5_Prob11_Population"<<endl;
                 //Declaration of Variables
                 float popinc, pPopinc;      //Daily population increase and Daily population increase in percent
-                unsigned short numDays,     //Number of days to test
-                               pop,         //Population
-                               inPop;       //the increase of population of that day
+                int numDays,                //Number of days to test
+                    pop,                    //Population
+                    inPop;                  //the increase of population of that day
 
 
                 //Input values
@@ -220,19 +221,16 @@ int main(int argc, char** argv) {
             case 7:{
                 cout<<"Inside Problem Gaddis_8thEd_Ch5_Prob14_StudentLineUp"<<endl;
                 //Declaration of Variables
-                string name, //Student names
+                string name,  //Student names
                        fName, //Name of First student
                        lName; //Name of Last student
                 unsigned short nStudnt;
 
                 //Input values
-                cout << "Please input the number of students in the class (1 to 25):" << endl;
-                cin >> nStudnt;
-                while ((1>nStudnt) && (nStudnt>25)){
-                    cout << "You entered a values that was either less than one or greater than 25." << endl;
-                    cout << "Please re-enter the number of students in your class :" << endl;
+                do{
+                    cout << "Please input the number of students in the class (1 to 25):" << endl;
                     cin >> nStudnt;
-                }
+                }while ((1>nStudnt) || (nStudnt>25));
 
                 //Process variables (loops) and Display output
                 cout << "Please enter the first names of your students (one at a time)" << endl;
