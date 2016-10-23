@@ -32,6 +32,7 @@ int main(int argc, char** argv) {
     int agility, attck, luck, pLuck, pAglty, pAttck, points;
     string input1, input2, countAtt;
     string line, move, confirm;
+    char player;
     
     //Skill set-up:
     do{
@@ -151,22 +152,16 @@ int main(int argc, char** argv) {
     //Input values
     in.open("map.dat");
     in>>rows>>cols;
-    cout<<"rows = "<<rows<<" cols = "<<cols<<endl;
     
     //Display Output / what is in the file to the output screen
     //In addition add in row numbers and column numbers for the user
     getline(in,line);
     for(int row=1;row<=rows;row++){
             getline(in,line);
-            cout<<row<<" "<<line<<endl;
+            cout<<line<<endl;
         }
-        cout<<"  ";
-        for(int col=1;col<=cols;col++){
-            cout<<col;
-        }
-        cout<<endl;
-
-        //Where do you want to place the player
+    
+    //Where do you want to place the player
         do{
             cout<<"Input the direction of your turn"<<endl;
             cin>>move;
