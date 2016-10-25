@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
     short monMove,pMove,              //Monster's move, Player's Move.
           mHealth,bHealth=25,health,  //Monter's Health, Boss's Health, Player Health.
           crit,dodge,sneak,           //Critical hit chance, Dodge, Sneak.
-          spawn;                      //Spawn chance of monsters.
+          spawn;                      //Spawn chance of monsters
     string input1,input2,     //Input1 (User action in a fight), Input2 (User decision to sneak).
            countAtt,confirm,  //Counter Attack, and confirm (User decision to confirm).  
            use;               //Use (user input to use an item).
@@ -138,7 +138,7 @@ int main(int argc, char** argv) {
                     points = points - z;    //Remove Stored points.
                     cout << "You have a total of " << health << " hit points." << endl;
                     break;
-                case 4: 
+                case 4: //Luck Selected
                     do{
                         cout << "Would you like to add points in to luck. Current amount : " << luck << endl << "You have " 
                              << points << " points to spend." << endl;
@@ -165,7 +165,7 @@ int main(int argc, char** argv) {
                     cout << "You have a total of " << luck << " points in luck." << endl;
                     break;
             }
-        }while (points > 0);
+        }while (points > 0);  //End of Skill Set-Up loop
         //Display to skills
         cout << "Your current skill set is such:" << endl << endl;
         cout << "Attack:       " << setw(2) << attck << " Points" << endl;
@@ -175,11 +175,12 @@ int main(int argc, char** argv) {
         cout << "Are you happy with this ? If so type in yes if not type in no." << endl;
         do{
             cin >> confirm;
-        } while(!(confirm == "Yes") && !(confirm == "yes") && !(confirm == "No") && !(confirm == "no")); //End of Skill Set-Up loop
+        } while(!(confirm == "Yes") && !(confirm == "yes") && !(confirm == "No") && !(confirm == "no")); 
     } while (confirm == "No" || confirm == "no"); //End of confirmation loop
     
     //The Camp shop:
-    cout << "Before you go on your journey this is the cape shop" << endl;
+    cout << "Before you go on your journey this is the camp shop" << endl;
+    cout << "Everything costs 5 coins" << endl;
     do{ //The Store Loop
         //Boolean values comes into play. They decide if item is to be displayed.
         if (it1)cout << "A. Steel Sword" << endl;
@@ -231,7 +232,7 @@ int main(int argc, char** argv) {
     pAglty = 100 - (agility * 9);   
     pAttck = 100 - (attck * 5);
     pLuck = 100 - (luck * 4);
-    if(it1 == false) pAttck = 100 - ((attck+2) * 5);
+    if(it1 == false) pAttck = 100 - ((attck+1) * 5);
     if(it2 == false) pLuck = 100 - ((luck+2) * 4);
     if(it3 == false) health = 25 + 5;
     
@@ -251,6 +252,7 @@ int main(int argc, char** argv) {
         //Player inputs direction of movement.
         cout<<"Input the direction of your turn (up,down,left,right)"<<endl;
         cin>>move;
+        //Determine player location on map
         if (move == "up" || move == "Up") prow -= 1;
         else if (move == "down" || move == "Down") prow += 1;
         else if (move == "right" || move == "Right") pcol += 1;
@@ -302,13 +304,13 @@ int main(int argc, char** argv) {
     //Battle sequences:
         //Boss Spawns
         if (prow == 1 && pcol == 4){ //Player is in the last room Boss will spawn
-            //Store before the boss:
+            //Shop before the boss:
             cout << "You see a looming door in front of you." << endl;
             cout << "There is also a lost merchant.";
             cout << "He does not look human." << endl;
             cout << "He asks if you see anything you like." << endl;
             if (coins >= 5){ //if player has 5 or more coins
-                do{ //Store Loop
+                do{ //Shop Loop
                     cout << "Everything costs 5 coins" << endl;
                     cout << "You have" << coins << "coins" << endl;
                     if (it4)cout << "A. Shield" << endl;
@@ -337,7 +339,7 @@ int main(int argc, char** argv) {
                             it7 = false;break;
                         default: cout << "You didn't input a valid selection"<<endl;
                     }
-                }while(!(coins < 5) && !(confirm == "Leave" || confirm == "leave")); //End of store loop
+                }while(!(coins < 5) && !(confirm == "Leave" || confirm == "leave")); //End of shop loop
             }
             else { //If player cannot afford to purchase anything
                 cout << "He scoffs at your lack or funds" << endl;
@@ -348,9 +350,11 @@ int main(int argc, char** argv) {
             
             cout << "You open the doors and there stands a 7 foot tall Knight.";
             cout << endl << "He raises his sword and you prepare yourself." << endl;
+            cout << "You only have 8 turns to kill this boss" << endl;
             
             //Boss fight:
-            for (int turns = 0; (turns < 10) && (health > 0) && (bHealth > 0); turns++){
+            for (int turns = 1; (turns <= 8) && (health > 0) && (bHealth > 0); turns++){
+                cout << "Turn :" << turns << endl;
                 do {
                     cout << "Input you move (attack, dodge, inventory):"<<endl;
                     cin >> input1;  //Player inputs their move
@@ -483,19 +487,24 @@ int main(int argc, char** argv) {
                     cout << endl << "Your health = " << health << endl << "Boss's health = " << bHealth << endl;
                 }
                 //Boss has been slain
-                if (bHealth < 0) { 
+                if (bHealth <= 0) { 
                     cout << "YOU KILLED THE BOSS" << endl;
                     points += 100;
                 }
                 //Player was slain with effigy
-                if (it5 == false && health < 0){
+                if (it5 == false && health <= 0){
                     cout << "Your human effigy shudders" << endl;
                     cout << "Your health is refilled" << endl;
                     health = eHealth;   //Reset player health
                     it5 = true;         //Reset effigy
                 }
                 //Player was slain without effigy
-                if (health < 0 ) cout << "YOU ARE DEAD" << endl;
+                if (health <= 0 ) cout << "YOU ARE DEAD" << endl;
+                //If you ran out of number of turns:
+                if (turns > 8) {
+                    health = 0;
+                    cout << "You the boss uses his ultimate and you die" << endl;
+                }
             } 
         }//Boss fight ends here
         //Monster (normal) fight:
@@ -640,16 +649,17 @@ int main(int argc, char** argv) {
                                 it5 = true;
                             }
                             //Monster is slain
-                            if (mHealth < 0){
+                            if (mHealth <= 0){
                                 cout << "YOU KILLED THE MONSTER" << endl;
                                 loot = rand()%90 + 11;
                                 coins = (loot >= pLuck)? coins+=3 : coins+=2;
-                                cout << "You looted " << coins << endl;
+                                cout << "You looted " << coins 
+                                        << " coins" << endl;
                                 points += 8.3;
                                 kills += 1;
                             }
                             //Player dies with no effigy
-                            if (health < 0 ) cout << "YOU ARE DEAD" << endl;
+                            if (health <= 0 ) cout << "YOU ARE DEAD" << endl;
                         }while (mHealth > 0 && health > 0); //End of battle loop
                     }
                     //Player input sneak:
@@ -678,23 +688,28 @@ int main(int argc, char** argv) {
     }while (health > 0 && bHealth > 0); //End of main loop
     
     //Display score board:
-    cout << "YOU WON CONGRADULATIONS" << endl;
-    cout << "Enter your name for the score board: ";
-    getline(cin,name);
-    cout << endl << endl << endl << endl << endl << endl << endl <<endl;
-    cout << endl << endl << endl << endl << endl << endl << endl <<endl;
-    cout << endl << endl << endl << endl << endl << endl << endl <<endl;
-    cout << endl << endl << endl << endl << endl << endl << endl <<endl;
+    if (health > 0 && bHealth < 0) {
+        cout << "YOU WON CONGRADULATIONS" << endl;
+        cout << "Enter your name for the score board: ";
+        getline(cin,name);
+        cout << endl << endl << endl << endl << endl << endl << endl <<endl;
+        cout << endl << endl << endl << endl << endl << endl << endl <<endl;
+        cout << endl << endl << endl << endl << endl << endl << endl <<endl;
+        cout << endl << endl << endl << endl << endl << endl << endl <<endl;
 
-    cout << name << " is the winner" << endl;
-    cout << setprecision(2) << fixed << endl;
-    cout << name <<"'s skills were: " << endl;
-    cout << "Attack:       " << setw(2) << attck << " Points" << endl;
-    cout << "Agility:      " << setw(2) << agility << " Points" << endl;
-    cout << "Luck:         " << setw(2) << luck << " Points" << endl;
-    cout << "Total Health: " << setw(2) << health << endl << endl;
-    cout << name << " had :" << setw(18) << kills << " monster kills" << endl;
-    cout << name << " had a final score of " << setw(2) << " points" << endl;
+        cout << name << " is the winner" << endl;
+        cout << setprecision(2) << fixed << endl;
+        cout << name <<"'s skills were: " << endl;
+        cout << "Attack:       " << setw(2) << attck << " Points" << endl;
+        cout << "Agility:      " << setw(2) << agility << " Points" << endl;
+        cout << "Luck:         " << setw(2) << luck << " Points" << endl;
+        cout << "Total Health: " << setw(2) << health << endl << endl;
+        cout << name << " had :" << setw(2) << kills << " monster kills" << endl;
+        cout << name << " had a final score of " << setw(2) << sqrt(points) << " points" << endl;
+    }
+    else {
+        cout << "You lost" << endl;
+    }
     
     return 0;
 }
