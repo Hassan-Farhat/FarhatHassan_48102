@@ -249,11 +249,10 @@ int main(int argc, char** argv) {
     //Player input for movement 
     do{ //Main Loop
         //Player inputs direction of movement.
-        cout<<"Input the direction of your turn (up,down,left,right)"<<endl;
+        cout<<"Input the direction of your turn (up,left,right)"<<endl;
         cin>>move;
         //Determine player location on map
         if (move == "up" || move == "Up") prow -= 1;
-        else if (move == "down" || move == "Down") prow += 1;
         else if (move == "right" || move == "Right") pcol += 1;
         else if (move == "left" || move == "Left") pcol -= 1;
 
@@ -279,9 +278,8 @@ int main(int argc, char** argv) {
             if(row == prow && (line[pcol] == 'O')){ //Movement validity check
                 line[pcol]='P';
             }
-            if (row == prow && line[pcol] == 'X'){  //Movement validity check
+            else if (row == prow && line[pcol] == 'X'){  //Movement validity check
                 if (move == "up" || move == "Up") prow += 1;
-                else if (move == "down" || move == "Down") prow -= 1;
                 else if (move == "right" || move == "Right") {
                     pcol -= 1;
                     line[pcol]='P';
