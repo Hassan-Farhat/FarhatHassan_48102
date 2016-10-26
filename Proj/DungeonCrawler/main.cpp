@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
     string item4="Shield", item6="Holy Spell", item7="Bow"; //Usable items Item1, Item2, Item3.
     //Score Variables:
     short kills = 0;        //Number of monster kills.
-    float points = 0;   //Number of points.
+    float points = 0.0f;    //Number of points.
     string name;
     
     //Skill Set-Up:
@@ -62,7 +62,6 @@ int main(int argc, char** argv) {
         cout << "This is the skill setup tree:" << endl 
         << "Here you will decide your attributes:" << endl << endl;
         agility = 5, attck = 5, luck = 2, health = 25, //Standard point distribution.
-        pLuck, pAglty, pAttck, 
         points = 10;                     //Number of spendable points.
         short w, x, y ,z,                //Checking/Calculation values.
               choice, remove, extra;     //Choice (selection of skill), Remove (to remove points), extra (used in calculations).            
@@ -650,10 +649,11 @@ int main(int argc, char** argv) {
                             }
                             //Monster is slain
                             if (mHealth <= 0){
+                                short cLoot = 0; //Number of coins you loot
                                 cout << "YOU KILLED THE MONSTER" << endl;
                                 loot = rand()%90 + 11;
-                                coins = (loot >= pLuck)? coins+=3 : coins+=2;
-                                cout << "You looted " << coins 
+                                coins = (loot >= pLuck)? coins+=3,cLoot = 3: coins+=2, cLoot = 2;
+                                cout << "You looted " << cLoot 
                                         << " coins" << endl;
                                 points += 8.3;
                                 kills += 1;
