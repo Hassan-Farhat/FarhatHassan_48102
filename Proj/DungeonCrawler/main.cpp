@@ -198,7 +198,7 @@ int main(int argc, char** argv) {
         else cout << "G. Purchased" << endl;
         cout << "What would you like to purchase?" << coins << " Coins" <<endl;
         cout << "Type in the letter before the item" << endl;
-        cout << "You can leave by typing in Leave" << endl;
+        cout << "You can leave by typing in L" << endl;
         cin >> select;  //User decides what items to be purchased.
         switch (select){
             case 'A': //Purchase/Selection of Item1
@@ -224,7 +224,7 @@ int main(int argc, char** argv) {
                 it7 = false;break;
             default: cout << "You didn't input a selection" <<endl;
         }
-    }while(!(coins < 5) && !(confirm == "Leave" || confirm == "leave")); //End of store loop
+    }while(!(coins < 5) && !(select == 'L')); //End of store loop
     
     //Modifiers:
     eHealth = health;               //Effigy stores total health
@@ -256,7 +256,6 @@ int main(int argc, char** argv) {
         else if (move == "down" || move == "Down") prow += 1;
         else if (move == "right" || move == "Right") pcol += 1;
         else if (move == "left" || move == "Left") pcol -= 1;
-        cout<<"Player position in Y = "<<prow<<" Player position in X = "<<pcol<<endl;
 
         //Clear the screen for next map
         cout << endl << endl << endl << endl << endl << endl << endl << endl;
