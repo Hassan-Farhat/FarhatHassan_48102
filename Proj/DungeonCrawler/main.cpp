@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
     string line,move;  // Line (used to display the row) and move (user input).
     //Battle Variables:
     short monMove,pMove,              //Monster's move, Player's Move.
-          mHealth,bHealth=25,health,  //Monter's Health, Boss's Health, Player Health.
+          mHealth,bHealth=25,health,  //Monster's Health, Boss's Health, Player Health.
           crit,dodge,sneak,           //Critical hit chance, Dodge, Sneak.
           spawn;                      //Spawn chance of monsters
     string input1,input2,     //Input1 (User action in a fight), Input2 (User decision to sneak).
@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
     short agility,attck,luck,   //Agility, Attack, Luck.
           pLuck,pAglty,pAttck;  //Player Luck, Player Agility, Player Attack (These are used in the modifiers).
     //Shop Variables:
-    char select;                //Select an item for purchase.
+    char select, start;         //Select an item for purchase, (start) used to start the game
         //These are booleans used to check availability in the store.
     bool it1 = true, it2 = true, 
          it3 = true, it4 = true, 
@@ -56,6 +56,18 @@ int main(int argc, char** argv) {
     short kills = 0;        //Number of monster kills.
     float points = 0.0f;    //Number of points.
     string name;
+    
+    //The Introscreen:
+    cout << "    ==================================================================" << endl;
+    cout << "                  Welcome this is Dungeon Crawler" << endl;
+    cout << "              Created by Hassan Farhat for CSC-5 48102" << endl;
+    cout << "                  To play please type in anything" << endl;
+    cout << "    ==================================================================" << endl;
+    cin >> start;
+    cout << endl << endl << endl << endl << endl << endl << endl << endl;
+    cout << endl << endl << endl << endl << endl << endl << endl << endl;
+    cout << endl << endl << endl << endl << endl << endl << endl << endl;
+    cout << endl << endl << endl << endl << endl << endl << endl << endl;
     
     //Skill Set-Up:
     do{  //Confirmation loop starts here.
@@ -179,22 +191,22 @@ int main(int argc, char** argv) {
     
     //The Camp shop:
     cout << "Before you go on your journey this is the camp shop" << endl;
-    cout << "Everything costs 5 coins" << endl;
+    cout << "Everything costs 5 coins" << endl << endl;
     do{ //The Store Loop
         //Boolean values comes into play. They decide if item is to be displayed.
-        if (it1)cout << "A. Steel Sword" << endl;
+        if (it1)cout << "A. Steel Sword (increase in Attack)" << endl;
         else cout << "A. Purchased" << endl;
-        if (it2)cout << "B. Rabbit's Foot" << endl;
+        if (it2)cout << "B. Rabbit's Foot (increase Luck)" << endl;
         else cout << "B. Purchased" << endl;
-        if (it3)cout << "C. Armor" << endl;
+        if (it3)cout << "C. Armor (increase Health)" << endl;
         else cout << "C. Purchased" << endl;
-        if (it4)cout << "D. Shield" << endl;
+        if (it4)cout << "D. Shield (can be used in combat to gain HP)" << endl;
         else cout << "D. Purchased" << endl;
-        if (it5)cout << "E. Human Effigy" << endl;
+        if (it5)cout << "E. Human Effigy (revives player)" << endl;
         else cout << "E. Purchased" << endl;
-        if (it6)cout << "F. Holy Spell" << endl;
+        if (it6)cout << "F. Holy Spell (Deals damage to boss half of the time)" << endl;
         else cout << "F. Purchased" << endl;
-        if (it7)cout << "G. Bow" << endl; 
+        if (it7)cout << "G. Bow (Deal damage from a far safely)" << endl; 
         else cout << "G. Purchased" << endl;
         cout << "What would you like to purchase?" << coins << " Coins" <<endl;
         cout << "Type in the letter before the item" << endl;
@@ -224,6 +236,7 @@ int main(int argc, char** argv) {
                 it7 = false;break;
             default: cout << "You didn't input a selection" <<endl;
         }
+        cout << endl;
     }while(!(coins < 5) && !(select == 'L')); //End of store loop
     
     //Modifiers:
@@ -245,6 +258,9 @@ int main(int argc, char** argv) {
             getline(in,line);
             cout<<line<<endl;
     }
+    
+    cout << endl << "Welcome Adventurer you are currently at base camp (C on the map)" << endl;
+    cout << "To start type in up!" << endl;
     
     //Player input for movement 
     do{ //Main Loop
@@ -335,7 +351,7 @@ int main(int argc, char** argv) {
                             it7 = false;break;
                         default: cout << "You didn't input a valid selection"<<endl;
                     }
-                }while(!(coins < 5) && !(confirm == "Leave" || confirm == "leave")); //End of shop loop
+                }while(!(coins < 5) && !(select == 'L')); //End of shop loop
             }
             else { //If player cannot afford to purchase anything
                 cout << "He scoffs at your lack or funds" << endl;
@@ -710,4 +726,3 @@ int main(int argc, char** argv) {
     
     return 0;
 }
-
