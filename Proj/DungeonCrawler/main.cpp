@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
     short agility,attck,luck,   //Agility, Attack, Luck.
           pLuck,pAglty,pAttck;  //Player Luck, Player Agility, Player Attack (These are used in the modifiers).
     //Shop Variables:
-    char select, start;         //Select an item for purchase, (start) used to start the game
+    char select;         //Select an item for purchase, (start) used to start the game
         //These are booleans used to check availability in the store.
     bool it1 = true, it2 = true, 
          it3 = true, it4 = true, 
@@ -55,15 +55,17 @@ int main(int argc, char** argv) {
     //Score Variables:
     short kills = 0;        //Number of monster kills.
     float points = 0.0f;    //Number of points.
-    string name;
+    string name, start;
     
     //The Introscreen:
     cout << "    ==================================================================" << endl;
     cout << "                  Welcome this is Dungeon Crawler" << endl;
     cout << "              Created by Hassan Farhat for CSC-5 48102" << endl;
-    cout << "                  To play please type in anything" << endl;
+    cout << "                  When you are ready type in start" << endl;
     cout << "    ==================================================================" << endl;
-    cin >> start;
+    do{
+        cin >> start;
+    }while (!(start == "start"));
     cout << endl << endl << endl << endl << endl << endl << endl << endl;
     cout << endl << endl << endl << endl << endl << endl << endl << endl;
     cout << endl << endl << endl << endl << endl << endl << endl << endl;
@@ -115,7 +117,7 @@ int main(int argc, char** argv) {
                     break;
                 case 2: //Agility Selected
                     do{
-                        cout << "Would you like to add points in to Agility. Current amount : " << agility << endl << "You have " << points 
+                        cout << "How many points would you like to add to Agility. Current amount : " << agility << endl << "You have " << points 
                              << " points to spend." << endl;
                         cin >> y;   //Storage of points to add.
                     } while (y > points);   //Check to to ensure value if valid.
@@ -141,7 +143,7 @@ int main(int argc, char** argv) {
                     break;
                 case 3: //Health Selected
                     do{
-                        cout << "Would you like to add points in to Health. Current amount : " << health << endl << "You have " 
+                        cout << "How many points would you like to add to Health. Current amount : " << health << endl << "You have " 
                              << points << " points to spend." << endl;
                         cin >> z;   //Storage of points to add.
                     } while (z > points);   //Check to ensure valid number was entered.
@@ -151,7 +153,7 @@ int main(int argc, char** argv) {
                     break;
                 case 4: //Luck Selected
                     do{
-                        cout << "Would you like to add points in to luck. Current amount : " << luck << endl << "You have " 
+                        cout << "How many points would you like to add to luck. Current amount : " << luck << endl << "You have " 
                              << points << " points to spend." << endl;
                         cin >> w;   //Storage of points to add.
                     } while (w > points);   //Check to ensure valid number was entered. 
@@ -208,8 +210,8 @@ int main(int argc, char** argv) {
         else cout << "F. Purchased" << endl;
         if (it7)cout << "G. Bow (Deal damage from a far safely)" << endl; 
         else cout << "G. Purchased" << endl;
-        cout << "What would you like to purchase?" << coins << " Coins" <<endl;
-        cout << "Type in the letter before the item" << endl;
+        cout << "What would you like to purchase? " << coins << " Coins to spend" <<endl;
+        cout << "Type in the capital letter before the item" << endl;
         cout << "You can leave by typing in L" << endl;
         cin >> select;  //User decides what items to be purchased.
         switch (select){
@@ -240,17 +242,17 @@ int main(int argc, char** argv) {
     }while(!(coins < 5) && !(select == 'L')); //End of store loop
     
     //Modifiers:
-    eHealth = health;               //Effigy stores total health
     pAglty = 100 - (agility * 9);   
     pAttck = 100 - (attck * 5);
     pLuck = 100 - (luck * 4);
     if(it1 == false) pAttck = 100 - ((attck+1) * 5);
     if(it2 == false) pLuck = 100 - ((luck+2) * 4);
-    if(it3 == false) health = 25 + 5;
+    if(it3 == false) health = health + 5;
+    eHealth = health;               //Effigy stores total health
     
     //Map Construction/Movement:
     in.open("map.dat"); //Open map file
-    in>>rows>>cols;     //input rows and columns
+    in>>rows;           //input rows   
     
     //Display Output : Map
     getline(in,line);   
@@ -284,7 +286,7 @@ int main(int argc, char** argv) {
 
         //Input values and open map file
         in.open("map.dat");
-        in>>rows>>cols;
+        in>>rows;
 
         //Display Player movement on map and read into the Player(map) file
         out.open("player.dat"); //Open player file
@@ -311,7 +313,7 @@ int main(int argc, char** argv) {
         cout<<endl;
         
     //Spawn Chance:
-        spawn = rand()%9;
+        spawn = rand()%9 + 1;
         
     //Battle sequences:
         //Boss Spawns
@@ -333,7 +335,7 @@ int main(int argc, char** argv) {
                     else cout << "C. Purchased" << endl;
                     if (it7)cout << "D. Bow" << endl; 
                     else cout << "D. Purchased" << endl;
-                    cout << "What would you like to purchase?" << coins << " Coins";
+                    cout << "What would you like to purchase? " << coins << " Coins to spend";
                     cout << endl << "Type in the letter before the item" << endl;
                     cin >> select;
                     switch (select){
@@ -521,7 +523,7 @@ int main(int argc, char** argv) {
         }//Boss fight ends here
         //Monster (normal) fight:
         else { 
-            if (spawn%2==0){  //Monster has spawned
+            if (spawn <=6){  //Monster has spawned
                 int c;        //Variable used to break out of loop
                 mHealth = 3;  //Monster health is set to 3 hp
                 cout << "MONSTER HAS SPAWNED PREPARE" << endl;
