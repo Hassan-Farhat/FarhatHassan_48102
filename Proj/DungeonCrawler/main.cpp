@@ -262,6 +262,7 @@ int main(int argc, char** argv) {
     }
     
     cout << endl << "Welcome Adventurer you are currently at base camp (C on the map)" << endl;
+    cout << "To win beat the boss (B on the map), GOOD LUCK." << endl;
     cout << "To start type in up!" << endl;
     
     //Player input for movement 
@@ -317,7 +318,7 @@ int main(int argc, char** argv) {
         
     //Battle sequences:
         //Boss Spawns
-        if (prow == 1 && pcol == 4){ //Player is in the last room Boss will spawn
+        if (prow == 1 && pcol == 4){ //Player is in the last room, Boss will spawn
             //Shop before the boss:
             cout << "You see a looming door in front of you." << endl;
             cout << "There is also a lost merchant.";
@@ -381,14 +382,14 @@ int main(int argc, char** argv) {
                         cout << "You have no items" << endl;
                     }
                     else { //If player has items
-                        cout << "Input the name of the item you would like to use" << endl;
-                        cout << "You you wont want to use any type in anything" << endl;
+                        cout << "Input the name exactly of the item you would like to use" << endl;
+                        cout << "If you don't want to use any item type in leave" << endl;
                         if (it4 == false)cout << item4 << endl;
                         if (it6 == false)cout << item6 << endl;
                         if (it7 == false)cout << item7 << endl;
                         do{ 
                             getline(cin,use);   //Player inputs what item they wish to use
-                        }while (!(use == item4) && !(use == item6) && !(use == item7));
+                        }while (!(use == item4) && !(use == item6) && !(use == item7) && !(use == "leave"));
                         //Use the item the player choose
                         if((it4 == false) && (use == item4)){
                             it4 = true;
@@ -450,11 +451,11 @@ int main(int argc, char** argv) {
                         int cAtt = rand()%90 + 11;   //Player counter attack
                         int cMAtt = rand()%90 + 11;  //Monster counter attack
                         //Determine if player counter attack hit:
-                        if (cAtt <= 40 && cMAtt >= 50){
+                        if (cAtt <= 50 && cMAtt >= 50){
                             cout << "YOUR COUNTER ATTACK FAILED AND YOU WERE HIT" << endl;
                             health -= 5;
                         }
-                        else if (cAtt <= 40 && cMAtt <= 50){
+                        else if (cAtt <= 50 && cMAtt <= 50){
                             cout << "YOUR COUNTER ATTACK FAILED BUT YOU WERE NOT HIT" << endl;
                         }
                         else{
@@ -495,7 +496,7 @@ int main(int argc, char** argv) {
                     }
                     else {
                         cout << "Your critical hit roll was " << crit << endl;
-                        bHealth -= 1;
+                        bHealth -= 2;
                         points += 1;
                     }
                     cout << endl << "Your health = " << health << endl << "Boss's health = " << bHealth << endl;
@@ -524,174 +525,168 @@ int main(int argc, char** argv) {
         //Monster (normal) fight:
         else { 
             if (spawn <=6){  //Monster has spawned
-                int c;        //Variable used to break out of loop
                 mHealth = 3;  //Monster health is set to 3 hp
                 cout << "MONSTER HAS SPAWNED PREPARE" << endl;
                 do{
                     cout << "You do you want to engage or sneak : " << endl;
                     cin >> input2;     //Player decides to sneak or engage  
                 }while(!(input2 == "engage") && !(input2 == "Engage") && !(input2 == "sneak") && !(input2 == "Sneak"));
-                do{ 
-                    if (input2 == "engage" || input2 == "Engage"){ //Player choose to engage
-                        c = 1;  //Break out variable set to 1
-                        do{ //Start of battle
-                            do {
-                                cout << "Input you move (attack, dodge, inventory):"<<endl;
-                                cin >> input1; //Player inputs their move
-                            }while (!(input1 == "dodge") && !(input1 == "attack") && !(input1 == "inventory"));
-                            //Player accessed their inventory:
-                            if (input1 == "inventory"){
-                                if(it4 == true && it6 == true && it7 == true) {
-                                    cout << "You have no items" << endl;
-                                }
-                                else{ //If player has items
-                                    cout << "Input the name of the item you would like to use" << endl;
-                                    cout << "You you wont want to use any type in anything" << endl;
-                                    if (it4 == false)cout << item4 << endl;
-                                    if (it6 == false)cout << item6 << endl;
-                                    if (it7 == false)cout << item7 << endl;
-                                    do{ 
-                                        getline(cin,use); //Player inputs what item they wish to use
-                                    }while (!(use == item4) && !(use == item6) && !(use == item7));
-                                    //Use the item the player choose:
-                                    if((it4 == false) && (use == item4)){
-                                        it4 = true;
-                                        health += 3;
-                                    }
-                                    else if ((it6 == false) && (use == item6)){
-                                        cout << "You can only use this item on the boss." << endl;
-                                    }
-                                    else if ((it7 == false) && (use == item7)){
-                                        cout << "You shoot the monster with your bow." << endl;
-                                        mHealth -= 2;
-                                        cout << "Monster's health = " << mHealth << endl;
-                                    }
-                                } //Close inventory
-                                do {
-                                    cout << "Input you move (attack, dodge):"<<endl;
-                                    cin >> input1;  //Player inputs their move
-                                    cin.clear();
-                                    cin.ignore();
-                                }while (!(input1 == "dodge") && !(input1 == "attack"));
-                            }   
-                            //Player choose to dodge:
-                            else if(input1 == "dodge" || input1 == "Dodge"){
-                                dodge = rand()%90 + 11;
-                                if (dodge >= pAglty){
-                                    cout << "Your dodge roll was " << dodge << "; enough to dodge." << endl;
-                                    pMove = 0;
-                                    points += 0.3;
-                                }
-                                else {
-                                    cout << "Your dodge roll was " << dodge << endl;
-                                    cout << "YOU FAILED YOUR DODGE YOU MUST ATTACK" << endl;
-                                    pMove = 1;
-                                }
+                //Player input sneak:
+                if (input2 == "sneak" || input2 == "Sneak"){
+                    sneak = rand()%90 + 11;
+                    if (sneak >= pLuck){ //Sneak was successful
+                        cout << "You snuck by." << endl;
+                        points += 1.8;
+                    }
+                    else {  //Sneak was no successful
+                        cout << "You alerted the monster." << endl;
+                        input2 = "engage";
+                    }
+                }
+                if (input2 == "engage" || input2 == "Engage"){ //Player choose to engage
+                    do{ //Start of battle
+                        do {
+                            cout << "Input you move (attack, dodge, inventory):"<<endl;
+                            cin >> input1; //Player inputs their move
+                        }while (!(input1 == "dodge") && !(input1 == "attack") && !(input1 == "inventory"));
+                        //Player accessed their inventory:
+                        if (input1 == "inventory"){
+                            if(it4 == true && it6 == true && it7 == true) {
+                                cout << "You have no items" << endl;
                             }
-                            //Player choose to attack:
-                            else{
+                            else{ //If player has items
+                                cout << "Input the name of the item you would like to use" << endl;
+                                cout << "If you don't want to use any item type in leave" << endl;
+                                if (it4 == false)cout << item4 << endl;
+                                if (it6 == false)cout << item6 << endl;
+                                if (it7 == false)cout << item7 << endl;
+                                do{ 
+                                    getline(cin,use); //Player inputs what item they wish to use
+                                }while (!(use == item4) && !(use == item6) && !(use == item7) && !(use == "leave"));
+                                //Use the item the player choose:
+                                if((it4 == false) && (use == item4)){
+                                    it4 = true;
+                                    health += 3;
+                                }
+                                else if ((it6 == false) && (use == item6)){
+                                    cout << "You can only use this item on the boss." << endl;
+                                }
+                                else if ((it7 == false) && (use == item7)){
+                                    cout << "You shoot the monster with your bow." << endl;
+                                    mHealth -= 2;
+                                    cout << "Monster's health = " << mHealth << endl;
+                                }
+                            } //Close inventory
+                            do {
+                                cout << "Input you move (attack, dodge):"<<endl;
+                                cin >> input1;  //Player inputs their move
+                                cin.clear();
+                                cin.ignore();
+                            }while (!(input1 == "dodge") && !(input1 == "attack"));
+                        }   
+                        //Player choose to dodge:
+                        else if(input1 == "dodge" || input1 == "Dodge"){
+                            dodge = rand()%90 + 11;
+                            if (dodge >= pAglty){
+                                cout << "Your dodge roll was " << dodge << "; enough to dodge." << endl;
+                                pMove = 0;
+                                points += 0.3;
+                            }
+                            else {
+                                cout << "Your dodge roll was " << dodge << endl;
+                                cout << "YOU FAILED YOUR DODGE YOU MUST ATTACK" << endl;
                                 pMove = 1;
                             }
-                            //Monsters move:
-                            monMove = rand()%9 + 1;
-                            int mMove = monMove%4;
-                            //Processing of moves in relation to one another:
-                            //Successful Dodge:
-                            if ( (mMove == 1 || mMove == 2 || mMove == 3) && pMove == 0){
-                                cout << "YOU DODGED !" << endl;
-                                cout << "DO YOU WANT TO TRY TO ATTACK ? (This is risky) (enter yes to attack)" << endl;
-                                cin >> countAtt;
-                                if (countAtt == "Yes" || countAtt == "yes") {
-                                    int cAtt = rand()%90 + 11;  //Player counter attack
-                                    int cMAtt = rand()%90 + 11; //Monster counter attack
-                                    //Determine if player counter attack hit:
-                                    if (cAtt <= 40 && cMAtt >= 50){
-                                        cout << "YOUR COUNTER ATTACK FAILED AND YOU WERE HIT" << endl;
-                                        health -= 2;
-                                    }
-                                    else if (cAtt <= 40 && cMAtt <= 50){
-                                        cout << "YOUR COUNTER ATTACK FAILED BUT YOU WERE NOT HIT" << endl;
-                                    }
-                                    else{
-                                        cout << "YOUR COUNTER ATTACK HIT" << endl;
-                                        mHealth -= 3; 
-                                        points += 1.5;
-                                    }
+                        }
+                        //Player choose to attack:
+                        else{
+                            pMove = 1;
+                        }
+                        //Monsters move:
+                        monMove = rand()%9 + 1;
+                        int mMove = monMove%4;
+                        //Processing of moves in relation to one another:
+                        //Successful Dodge:
+                        if ( (mMove == 1 || mMove == 2 || mMove == 3) && pMove == 0){
+                            cout << "YOU DODGED !" << endl;
+                            cout << "DO YOU WANT TO TRY TO ATTACK ? (This is risky) (enter yes to attack)" << endl;
+                            cin >> countAtt;
+                            if (countAtt == "Yes" || countAtt == "yes") {
+                                int cAtt = rand()%90 + 11;  //Player counter attack
+                                int cMAtt = rand()%90 + 11; //Monster counter attack
+                                //Determine if player counter attack hit:
+                                if (cAtt <= 40 && cMAtt >= 50){
+                                    cout << "YOUR COUNTER ATTACK FAILED AND YOU WERE HIT" << endl;
+                                    health -= 2;
                                 }
-                                cout << endl << "Your health = " << health << endl << "Monster's health = " << mHealth << endl;
+                                else if (cAtt <= 40 && cMAtt <= 50){
+                                    cout << "YOUR COUNTER ATTACK FAILED BUT YOU WERE NOT HIT" << endl;
+                                }
+                                else{
+                                    cout << "YOUR COUNTER ATTACK HIT" << endl;
+                                    mHealth -= 3; 
+                                    points += 1.5;
+                                }
                             }
-                            //You and the monster both attack    
-                            else if ((mMove == 1 || mMove == 2 || mMove == 3) && pMove == 1){
-                                cout << "YOU HIT THE MONSTER AND IT HIT YOU" << endl;
-                                crit = rand()%90 + 11;
-                                health -= 1;
-                                if (crit >= pAttck){ //Check for critical hit
-                                    cout << "Your critical hit roll was " << crit << endl;
-                                    cout << "IT WAS A CITICAL HIT" << endl;
-                                    mHealth -= 3;
-                                    points += 2;
-                                }
-                                else {
-                                    cout << "Your critical hit roll was " << crit << endl;
-                                    mHealth -= 1;
-                                    points += 1;
-                                }
-                                cout << endl << "Your health = " << health << endl << "Monster's health = " << mHealth << endl;
+                            cout << endl << "Your health = " << health << endl << "Monster's health = " << mHealth << endl;
+                        }
+                        //You and the monster both attack    
+                        else if ((mMove == 1 || mMove == 2 || mMove == 3) && pMove == 1){
+                            cout << "YOU HIT THE MONSTER AND IT HIT YOU" << endl;
+                            crit = rand()%90 + 11;
+                            health -= 1;
+                            if (crit >= pAttck){ //Check for critical hit
+                                cout << "Your critical hit roll was " << crit << endl;
+                                cout << "IT WAS A CITICAL HIT" << endl;
+                                mHealth -= 3;
+                                points += 2;
                             }
-                            //The monster is dazed (free attack)
                             else {
-                                cout << "THE MONSTER IS DAZED ! YOU ATTACK FOR FREE" << endl;
-                                crit = rand()%90 + 11;
-                                if (crit >= pAttck){ //Check for critical hit
-                                    cout << "Your critical hit roll was " << crit << endl;
-                                    cout << "IT WAS A CITICAL HIT" << endl;
-                                    mHealth -= 3;
-                                    points += 2;
-                                }
-                                else {
-                                    cout << "Your critical hit roll was " << crit << endl;
-                                    mHealth -= 1;
-                                    points += 1;
-                                }
-                                cout << endl << "Your health = " << health << endl << "Monster's health = " << mHealth << endl;
+                                cout << "Your critical hit roll was " << crit << endl;
+                                mHealth -= 1;
+                                points += 1;
                             }
-                            //Player dies but has effigy
-                            if (it5 == false && health == 0){
-                                cout << "Your human effigy shudders" << endl;
-                                cout << "Your health is refilled" << endl;
-                                health = eHealth;
-                                it5 = true;
-                            }
-                            //Monster is slain
-                            if (mHealth <= 0){
-                                short cLoot = 0; //Number of coins you loot
-                                cout << "YOU KILLED THE MONSTER" << endl;
-                                loot = rand()%90 + 11;
-                                coins = (loot >= pLuck)? coins+=3,cLoot = 3: coins+=2, cLoot = 2;
-                                cout << "You looted " << cLoot 
-                                        << " coins" << endl;
-                                points += 8.3;
-                                kills += 1;
-                            }
-                            //Player dies with no effigy
-                            if (health <= 0 ) cout << "YOU ARE DEAD" << endl;
-                        }while (mHealth > 0 && health > 0); //End of battle loop
-                    }
-                    //Player input sneak:
-                    else{
-                        sneak = rand()%90 + 11;
-                        if (sneak >= pLuck){ //Sneak was successful
-                            cout << "You snuck by." << endl;
-                            points += 1.8;
-                            c = 1;  //break out variable set to 1
+                            cout << endl << "Your health = " << health << endl << "Monster's health = " << mHealth << endl;
                         }
-                        else {  //Sneak was no successful
-                            cout << "You alerted the monster." << endl;
-                            c = 0;  //Break variable set to 0
-                            input2 = "engage";
+                        //The monster is dazed (free attack)
+                        else {
+                            cout << "THE MONSTER IS DAZED ! YOU ATTACK FOR FREE" << endl;
+                            crit = rand()%90 + 11;
+                            if (crit >= pAttck){ //Check for critical hit
+                                cout << "Your critical hit roll was " << crit << endl;
+                                cout << "IT WAS A CITICAL HIT" << endl;
+                                mHealth -= 3;
+                                points += 2;
+                            }
+                            else {
+                                cout << "Your critical hit roll was " << crit << endl;
+                                mHealth -= 1;
+                                points += 1;
+                            }
+                            cout << endl << "Your health = " << health << endl << "Monster's health = " << mHealth << endl;
                         }
-                    }
-                } while(c==0); //so long as c = 0 loop will continue
+                        //Player dies but has effigy
+                        if (it5 == false && health == 0){
+                            cout << "Your human effigy shudders" << endl;
+                            cout << "Your health is refilled" << endl;
+                            health = eHealth;
+                            it5 = true;
+                        }
+                        //Monster is slain
+                        if (mHealth <= 0){
+                            short cLoot = 0; //Number of coins you loot
+                            cout << "YOU KILLED THE MONSTER" << endl;
+                            loot = rand()%90 + 11;
+                            coins = (loot >= pLuck)? coins+=3,cLoot = 3: coins+=2, cLoot = 2;
+                            cout << "You looted " << cLoot 
+                                    << " coins" << endl;
+                            points += 8.3;
+                            kills += 1;
+                        }
+                        //Player dies with no effigy
+                        if (health <= 0 ) cout << "YOU ARE DEAD" << endl;
+                    }while (mHealth > 0 && health > 0); //End of battle loop
+                }
             }
             else{
                 cout << "YOU ARE CLEAR KEEP MOVING" << endl;
@@ -726,5 +721,6 @@ int main(int argc, char** argv) {
         cout << "You lost" << endl;
     }
     
+    //Exit Program
     return 0;
 }
