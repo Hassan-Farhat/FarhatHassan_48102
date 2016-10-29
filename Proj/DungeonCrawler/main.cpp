@@ -373,7 +373,7 @@ int main(int argc, char** argv) {
                 do {
                     cout << "Input you move (attack, dodge, inventory):"<<endl;
                     cin >> input1;  //Player inputs their move
-                    cin.ignore();
+                    cout << endl;
                 }while (!(input1 == "dodge") && !(input1 == "attack") && !(input1 == "inventory"));
                 
                 //Player accesses inventory
@@ -421,7 +421,7 @@ int main(int argc, char** argv) {
                     }while (!(input1 == "dodge") && !(input1 == "attack"));
                 } 
                 //User choose to dodge
-                else if (input1 == "dodge"){
+                if (input1 == "dodge"){
                     dodge = rand()%90 + 11;
                     if (dodge >= pAglty){ //Dodge was successful
                         cout << "Your dodge roll was " << dodge << "; enough to dodge!" << endl;
@@ -514,11 +514,11 @@ int main(int argc, char** argv) {
                     it5 = true;         //Reset effigy
                 }
                 //Player was slain without effigy
-                if (health <= 0 ) cout << "YOU ARE DEAD" << endl;
+                if (health <= 0) cout << "YOU ARE DEAD" << endl;
                 //If you ran out of number of turns:
                 if (turns > 8) {
                     health = 0;
-                    cout << "You the boss uses his ultimate and you die" << endl;
+                    cout << "The boss uses his ultimate and you die" << endl;
                 }
             } 
         }//Boss fight ends here
@@ -548,6 +548,7 @@ int main(int argc, char** argv) {
                         do {
                             cout << "Input you move (attack, dodge, inventory):"<<endl;
                             cin >> input1; //Player inputs their move
+                            cout << endl;
                         }while (!(input1 == "dodge") && !(input1 == "attack") && !(input1 == "inventory"));
                         //Player accessed their inventory:
                         if (input1 == "inventory"){
@@ -585,7 +586,7 @@ int main(int argc, char** argv) {
                             }while (!(input1 == "dodge") && !(input1 == "attack"));
                         }   
                         //Player choose to dodge:
-                        else if(input1 == "dodge" || input1 == "Dodge"){
+                        if(input1 == "dodge"){
                             dodge = rand()%90 + 11;
                             if (dodge >= pAglty){
                                 cout << "Your dodge roll was " << dodge << "; enough to dodge." << endl;
@@ -699,6 +700,7 @@ int main(int argc, char** argv) {
     
     //Display score board:
     if (health > 0 && bHealth < 0) {
+        cin.ignore();
         cout << "YOU WON CONGRADULATIONS" << endl;
         cout << "Enter your name for the score board: ";
         getline(cin,name);
