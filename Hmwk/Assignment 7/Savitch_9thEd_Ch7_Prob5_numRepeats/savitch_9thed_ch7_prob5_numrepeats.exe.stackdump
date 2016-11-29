@@ -1,0 +1,9 @@
+Exception: STATUS_ACCESS_VIOLATION at eip=0040137E
+eax=00000032 ebx=20050000 ecx=0062C9EC edx=0003B200 esi=612F2E9B edi=611D8DB2
+ebp=0062CC78 esp=0062CA70 program=C:\Users\Hassan\Desktop\FarhatHassan_48102.git\Hmwk\Assignment 7\Savitch_9thEd_Ch7_Prob5_numRepeats\dist\Debug\Cygwin-Windows\savitch_9thed_ch7_prob5_numrepeats.exe, pid 53916, thread main
+cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
+Stack trace:
+Frame     Function  Args
+0062CC78  0040137E (00000001, 0062CC9C, 20010108, 61007B2A)
+0062CD18  61007B8F (00000000, 0062CD74, 61006BC0, 00000000)
+End of stack trace
