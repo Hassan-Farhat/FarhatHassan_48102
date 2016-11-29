@@ -82,16 +82,14 @@ int nameSch(string a[], int n, string t){
         last = 11 - 1,         // Last array element       
         middle,                // Mid point of search       
         pos = -1;              // Position of search value
-    bool found = false;
     do{ 
         middle = (first+last)/2;    //Calculate the middle point
         if (a[middle]==t){
-            found = true;
             pos = middle;
             return pos;
         }
         else if (a[middle] > t) last = middle-1;
         else first = middle+1;
-    }while (found == false && first <= last);
+    }while (first <= last);
     return -1;
 }

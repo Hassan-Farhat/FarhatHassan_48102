@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on November 20, 2016, 5:39 PM
- * Purpose : 
+ * Purpose : Find the users account
  */
 
 //System Libraries
