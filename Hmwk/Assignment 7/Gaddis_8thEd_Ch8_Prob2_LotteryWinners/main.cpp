@@ -36,15 +36,15 @@ int main(int argc, char** argv) {
             cout << "Your numbers: " << input << endl;
             cout << "The lottery numbers: " << lot[i] << endl;
         }
-        else if (i==10 && found == false){
-            cout << "Your numbers where incorrect" << endl;
-            cout << "This weeks numbers are:" << endl;
-            for (int k = 1; k < 11; k++){
-                cout << lot[k] << "   ";
-                if (k%4 == 0) cout << endl;
-            }
-            cout << endl;
+    }
+    if (found == false){
+        cout << "Your numbers where incorrect" << endl;
+        cout << "This weeks numbers are:" << endl;
+        for (int k = 1; k < 11; k++){
+            cout << lot[k] << "   ";
+            if (k%4 == 0) cout << endl;
         }
+        cout << endl;
     }
     //Exit Program
     return 0;
