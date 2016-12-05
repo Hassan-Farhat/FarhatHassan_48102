@@ -51,10 +51,11 @@ string who(char);
 void spAtck(int &);
 string choice();
 void bubble(int [], int);
+void bubble(vector<short> &, int);
 void loot (vector<short> &, vector<short> &, int, int &, int &);
-void Select(vector<short> &, int n);
-bool linTest (vector<short> &, int);
-bool binTest (vector<short> &, int);
+void select(vector<short> &, int n);
+bool linTest (vector<short> &, int, int);
+bool binTest (vector<short> &, int, int);
 
 int main(int argc, char** argv) {
     //Set random number seed:
@@ -210,9 +211,29 @@ void loot (vector<short> &a,vector<short> &b,int pLuck,int &score,int &coins){
     if (x >= pLuck) n=15;
     else n=10;
     for (int i=0;i<n;i++){
-        
+        a[i]=rand()%9+1;
+        b[i]=rand()%9+1;
     }
+    
 }
+
+void bubble(vector<short> &a, int n){
+    bool swap;
+    int temp;
+    do{
+        swap = false;
+        for(int i=0; i<(n-1); i++){
+            if (a[i]>a[i+1]){
+                temp = a[i];
+                a[i] = a[i+1];
+                a[i+1] = temp;
+                swap = true;
+            }
+        }
+    }while(swap);
+}
+
+
 
 void intro (string start){
     cout << "    ==================================================================" << endl;
