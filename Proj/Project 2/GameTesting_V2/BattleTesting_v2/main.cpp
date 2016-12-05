@@ -29,10 +29,9 @@ int main(int argc, char** argv) {
     int spDice[SIZE], pDice[SIZE], scDice[SIZE], cDice[SIZE];
     int sn=3,n=3,sm=2,m=3, health = 25, mhealth = 15;
     int cWins,pWins,scWins,spWins;
-    char pClass, cClass;
+    char pClass='D', cClass='B';
     float pAttck=3.5, mAttck=1.5; 
     
-    cin >> cClass >> pClass;
     //Roll the dice:
     
     roll(spDice,sn,pDice,n,scDice,sm,cDice,m);
