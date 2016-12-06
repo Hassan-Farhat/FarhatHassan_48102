@@ -23,9 +23,6 @@ const int MAPCOL=100;
 
 //Function prototypes
 void intro (string);
-char clsslct ();
-bool dodge (int [],int,int);
-bool swin  (int[], int[], int &);
 void prntskl(string [], int []);
 void mods(int [],bool [], float &, int &, int &, int &, int &);
 void skTree (int [], string [], short);
@@ -34,61 +31,90 @@ void skillcal (int[], string [], short, int&);
 void skill (int [], string [], int, int, short, short);
 void crtmap(char[][MAPCOL]);
 void invtry(bool [], string [], short, char, int &, int &);
-char spType(int);
 void fillmap(char[][MAPCOL], char[][MAPCOL], int, int, int);
 void prntmap(char[][MAPCOL],int,int);
 void movemnt(char[][MAPCOL],string, int &, int &, char &);
 void shop (bool[],string[],int,int,int &, int &);
 void roll(int[], int, int[], int, int[], int, int[], int);
-void sort(int[], int);
+void marksort(int[], int);
 void pntroll(int[], int[], int = 3);
 void pntsrol(int[], int[], int = 2);
-void whowins(int, int, int &, int &, char, char, float, float);
-int  fight(int[], int[], int &, int = 3);
-short  dmg(int, char, char, float);
-short  mdmg(int, char, char, float);
-string who(char);
 void spAtck(int &);
-string choice();
 void bubble(int [], int);
 void bubble(vector<short> &, int);
 void loot (vector<short> &, vector<short> &, int, int &, int &);
 void select(vector<short> &, int);
+void highscr (int);
+void whowins(int, int, int &, int &, char, char, float, float);
+char clsslct ();
+char spType(int);
+bool dodge (int [],int,int);
+bool swin  (int[], int[], int &);
 bool linear (vector<short> &, int, int);
 bool binary (vector<short> &, int, int);
-void highscr (int);
+int  fight(int[], int[], int &, int = 3);
+short  dmg(int, char, char, float);
+short  mdmg(int, char, char, float);
+string who(char);
+string choice();
 
 int main(int argc, char** argv) {
     //Set random number seed:
     srand(static_cast<unsigned int> (time(0)));
     
-    //Declare Variables
+    //Declare Variables:
+    //Array Size variable:
     const int SIZE=100;
-    vector<short> coin(SIZE),point(SIZE);
-    int skills[]={6,7,2,100};
-    string skNames[]={"Agility" , "Attack", "Luck", "Health"}; //Name of the skills.
-    int points = 10, min;                //Number of spendable points.
-    short mn=4,                           //Checking/Calculation values.
-          choice;                        //Choice (selection of skill).
     const int MAPROW=100;
-    char map[MAPROW][MAPROW], pmap[MAPROW][MAPROW];
-    string move, start, type;
-    int spawn, effigy;
-    int prow=6, pcol=4;
-    pmap[prow][pcol] = 'P';
-    int coins = 15, counter=0, score=0;
-    bool it[]={true,true,true,true,true,true,true};
-    string items[]={"Shield", "Holy Spell", "Armor", "Sword", "Human Effigy",
-                     "Rabbit's Foot", "Bow"}, attack, confirm, input;
-    int used = 7, select;
-    int spDice[SIZE], pDice[SIZE], scDice[SIZE], cDice[SIZE];
-    int sn=3,n=3,sm=2,m=3,mhealth = 15, pLuck, health;
-    int cWins,pWins,spWins,scWins, pAglty, ddge;
-    bool spWin;
-    char pClass, cClass;
-    float pAttck, mAttck=1.5;
-    bool dChance = false, boss=false;
-    string name, buffer;
+    //Intro screen:
+    string start;                 //Used to start the game.
+    //Character creation variables:
+    int skills[]={6,7,2,100};               //Default skill values.
+    string skNames[]={"Agility" , "Attack", //Name of the skills.
+                      "Luck", "Health"}; 
+    int points = 10, min,                //Number of spendable points.
+        pAglty,                          //Player agility.
+        pLuck;                           //Player Luck.
+    short mn=4,                          //Checking/Calculation values.
+          choice;                        //Choice (selection of skill).
+    char pClass, cClass;                 //Player class.
+    //Loot variables:
+    vector<short> coin(SIZE),point(SIZE); //Vectors for coin chance and score chance.
+    int score=0;                          //The score of the player.
+    //Shop Variables:
+    bool it[]={true,true,true,true,true,true,true}; //Item purchase list.
+    string items[]={"Shield", "Holy Spell",         //Name of the items.
+                    "Armor", "Sword", "Human Effigy",
+                    "Rabbit's Foot", "Bow"}, 
+                    confirm;                        //Skill confirmation.
+    int used = 7,         //Utilized space of array.
+        select,           //Selection of item to purchase.
+        coins = 15,       //Number of coins the player has.
+        effigy;           //Effigy health storage
+    //Map and movement:
+    char map[MAPROW][MAPROW],  //The dynamic updating map     
+         pmap[MAPROW][MAPROW]; //The player changeable map 
+    string move, type;         //The player movement and Monster type.
+    int spawn;                 //The monster spawn.
+    int prow=6, pcol=4;        //The initial player starting point.
+    pmap[prow][pcol] = 'P';    //The initial player placement.
+    //Battle Variables:
+    int counter=0,                    //The special dice cool down.
+        spDice[SIZE], pDice[SIZE],    //The player's normal and special dice.
+        scDice[SIZE], cDice[SIZE],    //The computer's normal and special dice.
+        sn=3,n=3,                     //The player's amount of dice.
+        sm=2,m=3,                     //The computer's amount of dice.
+        mhealth,health,               //Monster health and player health.
+        ddge,                         //Player dodge chance.
+        cWins,pWins,                  //Computer and player normal wins.
+        spWins,scWins;                //Computer and player special wins.
+    bool spWin;                         //Special win check.
+    float pAttck, mAttck=1.5;           //The player and monster attack value.
+    bool dChance = false, boss=false;   //The dodge check, boss check.
+    string input;                 //The player action.
+    //High Score Variables:
+    string name, buffer;          //The player's name and the file buffer.  
+    
     
     //The Intro-screen:
     intro (start);
@@ -98,268 +124,142 @@ int main(int argc, char** argv) {
     
     //Player sets up their skills.
     do{
+        //Send player to skill function
         skill(skills, skNames, points, min, mn, choice);
+        //Present player with their skill set up.
         skTree(skills,skNames,mn);
         cout<<"If you are happy with this skill set up then type in yes else type in no."<<endl;
         do{
+            //Player confirms skill set up;
             cin >> confirm;
         } while(confirm != "Yes" && confirm != "yes" && confirm != "No" && confirm != "no"); 
     }while (confirm == "No" || confirm == "no");
     
-    
     //Shop:
     cout<<endl<<"This is the camp store see anything you like?"<<endl;
     shop(it,items,used,select,coins,health);
+    
+    //Modifiers
     mods (skills, it, pAttck, pAglty, pLuck, health, effigy);
     
-    do{
-        counter = 0;
-        mhealth = 15;
+    do{ //Start of the game loop
+        counter = 0;        //Special skill counter starts here
+        mhealth = 15;       //Set the monster's health
 
         //Create the map:
         crtmap(map);
+        //Fill the map with characters.
         fillmap(pmap,map,spawn,prow,pcol);
+        //Player movement.
         movemnt(pmap,move,prow,pcol,cClass);
         
-        //Battle
-        if (cClass=='='||cClass=='*'||cClass=='#'||cClass=='B'){
+        //Battle starts here
+        if (cClass=='='||cClass=='*'||cClass=='#'||cClass=='B'){ //Check the character of the map
+            //Determine the type of monster that spawns
             type = who(cClass);
-            if (cClass=='B'){
-                boss=true;
+            if (cClass=='B'){ //If 'B' then initiate the boss parameters 
+                //Set the boss check to true, set the boss health, and the boss attack value.
+                boss=true; 
                 mhealth = 50;
                 mAttck = 2;
                 cout<<"You are about to enter the boss room. There is a merchant waiting outside." << endl;
                 cout<<"Welcome what would you like to buy?"<<endl;
+                //Present the second shop.
                 shop(it,items,used,select,coins,health);
                 cout<<"The boss battle starts now!!"<<endl;
             }
             cout << "You are fighting a "<<type<<" type monster."<<endl;
-            do{
+            do{ //Battle Sequence Loop
                 do {
                     cout << "Input you move (attack, dodge, inventory):"<<endl;
                     cin >> input;  //Player inputs their move
                     cout << endl;
                 }while (input!="dodge" && input!="attack" && input!="inventory");
-                if (input=="attack"){
+                if (input=="attack"){ //If player input attack
                     cout<<endl;
+                    //Roll the player and monster dice.
                     roll(spDice,sn,pDice,n,scDice,sm,cDice,m);
-                    sort(pDice,n);
-                    sort(cDice,m);
+                    //Sort the player and monster dice.
+                    marksort(pDice,n);
+                    marksort(cDice,m);
+                    //Compare the results
                     pWins = fight(pDice,cDice,cWins);
+                    //Display the rolls, and the wins.
                     pntroll(pDice,cDice);
                     cout<<"You won: " << pWins << " rolls" << endl;
                     cout<<"The monster won: "<<cWins<< " rolls"<<endl;
+                    //Determine who wins the attack and deal out the damage.
                     whowins(pWins,cWins,health,mhealth,pClass,cClass,pAttck,mAttck);
-                    if ((counter % 3)==0 ){
-                       sort(spDice,sn);
+                    if ((counter % 3)==0 ){ //If counter is divisible by 3 then use special dice
+                       //Sort and compare the special dice, then determine if the player wins. 
+                       marksort(spDice,sn);
                        bubble(scDice,sm);
                        spWin=swin(spDice,scDice,spWins);
                        pntsrol(spDice,scDice);
                        cout<<"You won: "<<spWins<<" rolls"<<endl;
-                       if (spWin == true){
-                           spAtck (mhealth);
+                       if (spWin == true){ // If the player won.
+                           spAtck (mhealth); //Deal damage to the player.
                        }else cout<<"You failed your cast."<<endl;
                     }
+                    //Display monster and player health
                     cout<<endl<<mhealth<<" "<<health<<endl;
                     cout<<endl;
-                    counter+=1;
-                }else if (input=="inventory"){
+                    counter+=1; //Add one to the counter
+                }else if (input=="inventory"){ //If the player input "inventory"
+                    //Player inventory
                     invtry(it,items,n,cClass,health,mhealth);
-                }else{
+                }else{ //If the player input dodge.
+                    //Player dodge function:
                     dChance = dodge (skills,ddge,pAglty);
+                    //Roll the players and monster dice and sort them.
                     roll(spDice,sn,pDice,n,scDice,sm,cDice,m);
-                    sort(pDice,n);
-                    sort(cDice,m);
+                    marksort(pDice,n);
+                    marksort(cDice,m);
+                    //Compare the dice and determine who won.
                     pWins = fight(pDice,cDice,cWins);
-                    ddge=rand()%99+1;
-                    if(dChance == true && ddge>=50){ 
+                    ddge=rand()%99+1; //Counter attack chance.
+                    if(dChance == true && ddge>=50){ //Counter attack was successful.
                         pWins += 3;
+                        //Deal damage to the monster.
                         mhealth = mhealth - dmg(pWins, pClass, cClass, pAttck);
                         cout<<"You dodge safely and land a powerful hit"<<endl;
-                    }else if (dChance == true && ddge<=50){
+                    }else if (dChance == true && ddge<=50){//Counter attack not success full but dodge was.
                         cout << "You dodge safely!!"<<endl;
-                    }else{
-                        health = health - mdmg(cWins, pClass, cClass, mAttck);
+                    }else{ //Counter attack and dodge were not successful.
+                        //Deal damage to the player
+                        health = health - mdmg(cWins, pClass, cClass, mAttck); 
                         cout << "Your dodge attempt failed and you where hit." << endl;
                     }
+                    //Display the players and monsters health
                     cout<<mhealth<<" "<<health<<endl; 
                 }
-                if(it[4]==true && health <= 0){
-                        health = effigy;
+                if(it[4]==true && health <= 0){ //If the player purchased the effigy items and died
+                        health = effigy; //Reset the players health
                     }
-                if (mhealth <= 0){
+                if (mhealth <= 0){  //Once the player has killed the monster.
+                    //Player picks up loot.
                     loot (coin, point, pLuck, score, coins);
                 }
-            }while(health>0 && mhealth>0);   
+            }while(health>0 && mhealth>0);  //End of battle sequence 
         }
-    }while(boss==false || health<=0);
-    if (boss==true && mhealth<=0){
+    }while(boss==false || health<=0); // End of the game loop
+    if (boss==true && mhealth<=0){ //If the player won
         cout<<endl<<endl<<endl;
         cout<<endl<<endl<<endl;
         cout<<endl<<endl<<endl<< "Congratulations you won." << endl;
+        //Display the high-score and what the player's skills were.
         highscr(score);
         cout << "Your winning skill set up:" << endl;
         skTree(skills,skNames,mn);
-    }
-    else{
+    }else{ // If the player lost.
         cout<<"YOU LOST"<<endl;
     }
+    
+    //EXIT THE PROGRAM.
     return 0;
 }
 
-void highscr(int score){
-    //Declaration of Variables
-    ifstream in;
-    ofstream out;
-    string name, name1, buffer=" ";
-    short score1;
-    
-    //Open High Score File
-    in.open("HighScores.dat");
-    in>>name1>>score1;
-    
-    in.close();
-    in.clear();
-    
-    if (score > score1){
-        cout<<endl;
-        cout<<"You beat the pervious high-score"<<endl;
-        cout<<"The pervious score was:" << endl;
-        cout<<score1<<" Points"<<endl;
-        cout<<"Your score is:"<<endl;
-        cout<<score<<" Points"<<endl;
-        out.open("HighScores.dat");
-        //Change in high score
-        cout<<"Input you name:";
-        cin >> name;
-        out<<name<<buffer<<score;
-        cout<<endl<<endl<<endl<< "Final score summer:"<<endl;
-        cout<<name<<"   "<<score<<" Points"<<endl;
-        out.close();
-        out.clear();
-    }else{
-        cout << "You didn't beat the pervious high-score"<<endl;
-        cout<<name1<<"   "<< score1 <<endl;
-    }
-    
-}
-
-void bubble(int a[], int n){
-    bool swap;
-    int temp;
-    do{
-        swap = false;
-        for(int i=0; i<(n-1); i++){
-            if (a[i]>a[i+1]){
-                temp = a[i];
-                a[i] = a[i+1];
-                a[i+1] = temp;
-                swap = true;
-            }
-        }
-    }while(swap);
-}
-
-void loot (vector<short> &a,vector<short> &b,int pLuck,int &score,int &coins){
-    int x = rand()%99 + 1, n, t;
-    bool found1, found2;
-    cout<<"You kill the monster!!"<<endl;
-    if (x >= pLuck) n=15;
-    else n=10;
-    for (int i=0;i<n;i++){
-        a[i]=rand()%9+1;
-        b[i]=rand()%9+1;
-    }
-    bubble (a,n);
-    select (b,n);
-    cout<<"Time for some loot"<<endl;
-    cout<<"Enter a number between 1 and 9; if it matches the list then you get extra money."<<endl;
-    cin>>t;
-    if(found1==true){
-        cout<<"You guessed correctly"<<endl;
-        coins+=5;
-        cout<<"You now have: "<<coins<<" coins."<<endl;
-    }else{
-        cout<<"You guessed incorrectly"<<endl;
-        coins+=3;
-        cout<<"You now have: "<<coins<<" coins."<<endl;
-    }    
-    cout<<endl;
-    found1=linear(a,n,t);
-    cout<<"Enter a number between 1 and 9; if it matches the list then you get extra score."<<endl;
-    cin>>t;
-    found2=binary(b,n,t);
-    if(found2==true){
-        cout<<"You guessed correctly"<<endl;
-        score+=300;
-        cout<<"You now have: "<<score<<" Score points."<<endl;
-    }else{
-        cout<<"You guessed incorrectly"<<endl;
-        score+=100;
-        cout<<"You now have: "<<score<<" Score points."<<endl;
-    }   
-    cout << endl;
-}
-
-void bubble(vector<short> &a, int n){
-    bool swap;
-    int temp;
-    do{
-        swap = false;
-        for(int i=0; i<(n-1); i++){
-            if (a[i]>a[i+1]){
-                temp = a[i];
-                a[i] = a[i+1];
-                a[i+1] = temp;
-                swap = true;
-            }
-        }
-    }while(swap);
-}
-
-void select(vector<short> &b, int n){
-    int minI, minV;     //Minimum Index, Minimum Value
-    for(int s = 0; s < n-1; s++){
-        minI = s;
-        minV = b[s];
-        for(int i = s+1; i<n; i++){
-            if (b[i]<minV){
-                minV = b[i];
-                minI = i;
-            }
-        }
-        b[minI] = b[s];
-        b[s] = minV;
-    }
-}
-
-//Linear test
-bool linear(vector<short> &a, int n, int t){
-    for (int i=0; i<n; i++){
-        if (t == a[i]) return true;
-    }
-    return false;
-}
-
-//Binary Search
-bool binary(vector<short> &a, int n, int t){
-    int first = 0,             // First array element       
-        last = 11 - 1,         // Last array element       
-        middle,                // Mid point of search       
-        pos = -1;              // Position of search value
-    do{ 
-        middle = (first+last)/2;    //Calculate the middle point
-        if (a[middle]==t){
-            pos = middle;
-            return true;
-        }
-        else if (a[middle] > t) last = middle-1;
-        else first = middle+1;
-    }while (first <= last);
-    return false;
-}
-
-
+//Intro Screen:
 void intro (string start){
     cout << "    ==================================================================" << endl;
     cout << "                Welcome to Dungeon Crawler Version 2" << endl;
@@ -375,8 +275,8 @@ void intro (string start){
     cout << endl << endl << endl << endl << endl << endl << endl << endl;
 }
 
-
-
+//The Skill functions:
+//Primary skill function:
 void skill(int skills[], string skNames[], int points, int min, short n, short choice){
     cout << "This is the skill setup tree:" << endl 
     << "Here you will decide your attributes:" << endl << endl;
@@ -415,12 +315,14 @@ void skill(int skills[], string skNames[], int points, int min, short n, short c
     }while (points > 0);  //End of Skill Set-Up loop
 }
 
+//The skill tree:
 void skTree (int skills[], string skNames[], short n){
     for (int i=0;i<n;i++){
         cout<<i+1<<". "<<setw(7)<<skNames[i]<<setw(4)<<skills[i]<<endl;
     }
 }
 
+//The skill point distributor:
 void skillcal (int skills[],string skNames[],int min,short choice,int &points){
     int x, remove, extra;
     do{
@@ -450,6 +352,7 @@ void skillcal (int skills[],string skNames[],int min,short choice,int &points){
     }   //End of Check
 }
 
+//The health point distributor:
 void skillcal (int skills[], string skNames[], short choice, int &points){
     int x;
     do{
@@ -461,74 +364,20 @@ void skillcal (int skills[], string skNames[], short choice, int &points){
     points -= x;    
 }
 
-void crtmap(char map[][MAPCOL]){
-    for (int i=0; i<7; i++){
-        for (int k=0; k<9; k++){
-            if(i==0 && (k==0 || k==2 || k==6 || k==8)) map[i][k]='|';
-            else if(i==1&&(k==0 || k==2 || k==6 || k==8)) map[i][k]='|';
-            else if(i==2&&(k==0 || k==4 || k==8)) map[i][k]='|';
-            else if(i==3&&(k==0 || k==2 || k==6 || k==8)) map[i][k]='|';
-            else if(i==4&&(k==0 || k==2 || k==4 || k==6 || k==8))map[i][k]='|';
-            else if(i==5&&(k==0 || k==8)) map[i][k]='|';
-            else if(i==6&&(k==0 || k==3 || k==5 || k==8)) map[i][k]='|';
-            else if(i==0&&k==4)map[i][k]='B';
-            else if(i==6&&k==4)map[i][k]='C';
-            else map[i][k]='-';
-        }
-    }
+//Modifiers:
+void mods (int skills[],bool it[],float &pAttck,int &pAglty,int &pLuck,int &health, int &effigy){
+    //Modifiers:
+    health = skills[3];
+    effigy = health;
+    pAttck = skills[1] / 2;
+    pAglty = 100 - (skills[0] * 9);   
+    pLuck = 100 - (skills[2] * 4);
+    if(it[2] == false) pLuck = 100 - ((skills[2]+2) * 4);
+    if(it[3] == false) health = skills[3] + 5;
+    if(it[5] == false) pAttck = (skills[1]+1)/ 2;
 }
 
-char spType(int spawn){
-   spawn = rand()%5;
-   if (spawn == 0 || spawn == 4) return '-';
-   else if (spawn == 1) return '*';
-   else if (spawn == 2) return '#'; 
-   else if (spawn == 3) return '=';
-}
-
-void fillmap(char pmap[][MAPCOL], char map[][MAPCOL], int spawn, int prow, int pcol){
-    for (int i=0; i<7; i++){
-            for (int k=0; k<9; k++){
-                if(map[i][k]=='-' || map[i][k]=='*' || map[i][k]=='#')map[i][k] = spType(spawn);
-            }
-        }
-    for (int i=0; i<7; i++){
-        for (int k=0; k<9; k++){
-            if (i!=prow || k!=pcol) pmap[i][k]= map[i][k];
-        }
-    }
-    for (int i=0; i<7; i++){
-        for (int k=0; k<9; k++){
-            cout << pmap[i][k];
-            if(k==8) cout<<endl;
-        }
-    }
-}
-
-void movemnt(char pmap[][MAPCOL], string move, int &prow, int &pcol, char &mon){
-    do{
-        do{
-            cout<<"Type in the direction of your turn (up,left,right)"<<endl;
-            cin>>move;
-        }while(move!="up" && move!="left" && move!="right");
-        //Determine player location on map
-        if (move == "up" || move == "Up") prow -= 1;
-        else if (move == "right" || move == "Right") pcol += 1;
-        else if (move == "left" || move == "Left") pcol -= 1;
-        mon = pmap[prow][pcol];
-    }while(pmap[prow][pcol]=='|');
-    pmap[prow][pcol] = 'P';
-}
-
-void prntmap(char pmap[][MAPCOL], int prow, int pcol){
-    for (int i=0; i<7; i++){
-        for (int k=0; k<9; k++){
-            cout << pmap[i][k];
-            if(k==8) cout<<endl;
-        }
-    }
-}
-
+//The Shop Functions:
 void shop(bool it[],string items[],int n,int select,int &coins,int &health){
     do{
         for(int i=0; i<n; i++){
@@ -574,100 +423,7 @@ void shop(bool it[],string items[],int n,int select,int &coins,int &health){
     }while(!(coins < 5) && !(select==10));
 }
 
-string who(char cClass){
-    if (cClass == '*') return "Holy";
-    else if (cClass == '=') return "Ghost";
-    else if (cClass == '#') return "Dark";
-    else if (cClass == 'B') return "BOSS";
-}
-
-int  fight(int pD[],int cD[],int &cWins,int m){
-    int pWins=0;
-    cWins=0;
-    for (int i=0; i<m; i++){
-        if (pD[i]>cD[i]) pWins+=1;
-        else if (pD[i]<cD[i]) cWins+=1;
-        else{
-            pWins+=1;
-            cWins+=1;
-        }
-    }
-    return pWins;
-}
-
-void roll(int spD[],int sn,int pD[],int n,int scD[],int sm,int cD[],int m){
-    for (int i=0; i<sn; i++)spD[i]=rand()%12+1;
-    for (int i=0; i<n; i++)pD[i]=rand()%12+1;
-    for (int i=0; i<sm; i++)scD[i]=rand()%12+1;
-    for (int i=0; i<m; i++)cD[i]=rand()%12+1;
-}
-
-void sort(int a[],int size){
-    for(int i=0;i<size-1;i++){
-        for(int j=i+1;j<size;j++){
-            if(a[i]<a[j]){
-                a[i]=a[i]^a[j];
-                a[j]=a[i]^a[j];
-                a[i]=a[i]^a[j];
-            }
-        }
-    }
-}
-
-void pntroll(int pD[],int cD[], int m){
-    cout << "            NORMAL DICE" << endl;
-    cout << "Your rolls:  ";
-    for (int i=0; i<m; i++)cout<<setw(3)<<pD[i];
-    cout << endl<< "Enemy rolls: ";
-    for (int i=0; i<m; i++)cout<<setw(3)<<cD[i];
-    cout<<endl;
-}
-
-void pntsrol(int spD[],int scD[], int m){
-    cout <<"            SPECIAL DICE" << endl;
-    cout << "Your rolls:  ";
-    for (int i=0; i<m; i++)cout<<setw(3)<<spD[i];
-    cout << endl<< "Enemy rolls: ";
-    for (int i=0; i<m; i++)cout<<setw(3)<<scD[i];
-    cout<<endl;
-}
-
-short  dmg(int wins, char pClass, char cClass, float pAttck){
-    int damage = wins * pAttck;  
-    if (pClass=='D' && cClass=='*') return damage/2;
-    else if (pClass=='D' && cClass=='=') return damage+3;
-    else if (pClass=='H' && cClass=='#') return damage+3;
-    else if (pClass=='H' && cClass=='=') return damage/2;
-    else if (pClass=='G' && cClass=='#') return damage/2;
-    else if (pClass=='G' && cClass=='*') return damage+3;
-    else return damage;
-}
-
-short  mdmg(int wins, char pClass, char cClass, float mAttck){
-    int damage = (wins * mAttck + 0.5);  
-    if (cClass=='#' && pClass=='H') return damage/2;
-    else if (cClass=='#' && pClass=='G') return damage+3;
-    else if (cClass=='*' && pClass=='D') return damage+3;
-    else if (cClass=='*' && pClass=='G') return damage/2;
-    else if (cClass=='=' && pClass=='D') return damage/2;
-    else if (cClass=='=' && pClass=='H') return damage+3;
-    else return damage;
-}
-
-void whowins(int pWins,int cWins,int &health, int &mhealth,char pClass,char cClass,float pAttck,float mAttck){
-    if (pWins>cWins){
-        cout<<"You attack"<<endl;
-        mhealth = mhealth - dmg(pWins, pClass, cClass, pAttck);
-    }else if (pWins<cWins){
-        cout<<"The monster successfully attacks"<<endl;
-        health = health - mdmg(cWins, pClass, cClass, mAttck);
-    }else{
-        cout<<"You both hit each other"<<endl;
-        mhealth = mhealth - dmg(pWins, pClass, cClass, pAttck);
-        health = health - mdmg(cWins, pClass, cClass, mAttck);
-    }
-}
-
+//Player Class Selection:
 char clsslct(){
     string clss;
     cout <<"What class would you like to use?"<<endl;
@@ -684,18 +440,173 @@ char clsslct(){
     else if (clss == "Demon Hunter") return 'D';
 }
 
-void mods (int skills[],bool it[],float &pAttck,int &pAglty,int &pLuck,int &health, int &effigy){
-    //Modifiers:
-    health = skills[3];
-    effigy = health;
-    pAttck = skills[1] / 2;
-    pAglty = 100 - (skills[0] * 9);   
-    pLuck = 100 - (skills[2] * 4);
-    if(it[2] == false) pLuck = 100 - ((skills[2]+2) * 4);
-    if(it[3] == false) health = skills[3] + 5;
-    if(it[5] == false) pAttck = (skills[1]+1)/ 2;
+//Map Functions:
+//Create the map:
+void crtmap(char map[][MAPCOL]){
+    for (int i=0; i<7; i++){
+        for (int k=0; k<9; k++){
+            if(i==0 && (k==0 || k==2 || k==6 || k==8)) map[i][k]='|';
+            else if(i==1&&(k==0 || k==2 || k==6 || k==8)) map[i][k]='|';
+            else if(i==2&&(k==0 || k==4 || k==8)) map[i][k]='|';
+            else if(i==3&&(k==0 || k==2 || k==6 || k==8)) map[i][k]='|';
+            else if(i==4&&(k==0 || k==2 || k==4 || k==6 || k==8))map[i][k]='|';
+            else if(i==5&&(k==0 || k==8)) map[i][k]='|';
+            else if(i==6&&(k==0 || k==3 || k==5 || k==8)) map[i][k]='|';
+            else if(i==0&&k==4)map[i][k]='B';
+            else if(i==6&&k==4)map[i][k]='C';
+            else map[i][k]='-';
+        }
+    }
 }
 
+//Spawn type:
+char spType(int spawn){
+   spawn = rand()%5;
+   if (spawn == 0 || spawn == 4) return '-';
+   else if (spawn == 1) return '*';
+   else if (spawn == 2) return '#'; 
+   else if (spawn == 3) return '=';
+}
+
+//Fill the map with monsters:
+void fillmap(char pmap[][MAPCOL], char map[][MAPCOL], int spawn, int prow, int pcol){
+    for (int i=0; i<7; i++){
+            for (int k=0; k<9; k++){
+                if(map[i][k]=='-' || map[i][k]=='*' || map[i][k]=='#')map[i][k] = spType(spawn);
+            }
+        }
+    for (int i=0; i<7; i++){
+        for (int k=0; k<9; k++){
+            if (i!=prow || k!=pcol) pmap[i][k]= map[i][k];
+        }
+    }
+    for (int i=0; i<7; i++){
+        for (int k=0; k<9; k++){
+            cout << pmap[i][k];
+            if(k==8) cout<<endl;
+        }
+    }
+}
+
+//Movement function:
+void movemnt(char pmap[][MAPCOL], string move, int &prow, int &pcol, char &mon){
+    do{
+        do{
+            cout<<"Type in the direction of your turn (up,left,right)"<<endl;
+            cin>>move;
+        }while(move!="up" && move!="left" && move!="right");
+        //Determine player location on map
+        if (move == "up" || move == "Up") prow -= 1;
+        else if (move == "right" || move == "Right") pcol += 1;
+        else if (move == "left" || move == "Left") pcol -= 1;
+        mon = pmap[prow][pcol];
+    }while(pmap[prow][pcol]=='|');
+    pmap[prow][pcol] = 'P';
+}
+
+//Map printer:
+void prntmap(char pmap[][MAPCOL], int prow, int pcol){
+    for (int i=0; i<7; i++){
+        for (int k=0; k<9; k++){
+            cout << pmap[i][k];
+            if(k==8) cout<<endl;
+        }
+    }
+}
+
+//Monster class setter:
+string who(char cClass){
+    if (cClass == '*') return "Holy";
+    else if (cClass == '=') return "Ghost";
+    else if (cClass == '#') return "Dark";
+    else if (cClass == 'B') return "BOSS";
+}
+
+//Battle Functions:
+//Wins:
+int  fight(int pD[],int cD[],int &cWins,int m){
+    int pWins=0;
+    cWins=0;
+    for (int i=0; i<m; i++){
+        if (pD[i]>cD[i]) pWins+=1;
+        else if (pD[i]<cD[i]) cWins+=1;
+        else{
+            pWins+=1;
+            cWins+=1;
+        }
+    }
+    return pWins;
+}
+
+//Fill the roll arrays:
+void roll(int spD[],int sn,int pD[],int n,int scD[],int sm,int cD[],int m){
+    for (int i=0; i<sn; i++)spD[i]=rand()%12+1;
+    for (int i=0; i<n; i++)pD[i]=rand()%12+1;
+    for (int i=0; i<sm; i++)scD[i]=rand()%12+1;
+    for (int i=0; i<m; i++)cD[i]=rand()%12+1;
+}
+
+//Print the normal roll arrays:
+void pntroll(int pD[],int cD[], int m){
+    cout << "            NORMAL DICE" << endl;
+    cout << "Your rolls:  ";
+    for (int i=0; i<m; i++)cout<<setw(3)<<pD[i];
+    cout << endl<< "Enemy rolls: ";
+    for (int i=0; i<m; i++)cout<<setw(3)<<cD[i];
+    cout<<endl;
+}
+
+//Print the special roll arrays:
+void pntsrol(int spD[],int scD[], int m){
+    cout <<"            SPECIAL DICE" << endl;
+    cout << "Your rolls:  ";
+    for (int i=0; i<m; i++)cout<<setw(3)<<spD[i];
+    cout << endl<< "Enemy rolls: ";
+    for (int i=0; i<m; i++)cout<<setw(3)<<scD[i];
+    cout<<endl;
+}
+
+
+//Player damage calculation:
+short  dmg(int wins, char pClass, char cClass, float pAttck){
+    int damage = wins * pAttck;  
+    if (pClass=='D' && cClass=='*') return damage/2;
+    else if (pClass=='D' && cClass=='=') return damage+3;
+    else if (pClass=='H' && cClass=='#') return damage+3;
+    else if (pClass=='H' && cClass=='=') return damage/2;
+    else if (pClass=='G' && cClass=='#') return damage/2;
+    else if (pClass=='G' && cClass=='*') return damage+3;
+    else return damage;
+}
+
+//Monster damage calculation:
+short  mdmg(int wins, char pClass, char cClass, float mAttck){
+    int damage = (wins * mAttck + 0.5);  
+    if (cClass=='#' && pClass=='H') return damage/2;
+    else if (cClass=='#' && pClass=='G') return damage+3;
+    else if (cClass=='*' && pClass=='D') return damage+3;
+    else if (cClass=='*' && pClass=='G') return damage/2;
+    else if (cClass=='=' && pClass=='D') return damage/2;
+    else if (cClass=='=' && pClass=='H') return damage+3;
+    else return damage;
+}
+
+//Determine who wins:
+void whowins(int pWins,int cWins,int &health, int &mhealth,char pClass,char cClass,float pAttck,float mAttck){
+    if (pWins>cWins){
+        cout<<"You attack"<<endl;
+        mhealth = mhealth - dmg(pWins, pClass, cClass, pAttck);
+    }else if (pWins<cWins){
+        cout<<"The monster successfully attacks"<<endl;
+        health = health - mdmg(cWins, pClass, cClass, mAttck);
+    }else{
+        cout<<"You both hit each other"<<endl;
+        mhealth = mhealth - dmg(pWins, pClass, cClass, pAttck);
+        health = health - mdmg(cWins, pClass, cClass, mAttck);
+    }
+}
+
+//Player inventory:
 void invtry(bool it[], string items[], short n, char cClass, int &health, int &mHealth){
     string use;
     cout << "Input the name exactly of the item you would like to use" << endl;
@@ -737,6 +648,7 @@ void invtry(bool it[], string items[], short n, char cClass, int &health, int &m
     }
 }
 
+//Dodge chance:
 bool dodge (int skills[], int ddge,int pAglty){
     ddge = rand()%99+1+(skills[2]/2);
     if (ddge >= pAglty){
@@ -748,6 +660,7 @@ bool dodge (int skills[], int ddge,int pAglty){
     }
 }
 
+//Calculate the special wins:
 bool swin (int spDice [],int scDice [],int &spWins){
     spWins=0;
     for (int i=0; i<2; i++){
@@ -758,9 +671,182 @@ bool swin (int spDice [],int scDice [],int &spWins){
     else return false;
 }
 
+//Special attack function:
 void spAtck (int &mhealth){
     int x;
     cout<<"You unleash a powerful spell and remove half you enemies health"<<endl;
     x = mhealth/2;
     mhealth -= x;
+}
+
+//The loot function:
+void loot (vector<short> &a,vector<short> &b,int pLuck,int &score,int &coins){
+    int x = rand()%99 + 1, n, t;
+    bool found1, found2;
+    cout<<"You kill the monster!!"<<endl;
+    if (x >= pLuck) n=15;
+    else n=10;
+    for (int i=0;i<n;i++){
+        a[i]=rand()%9+1;
+        b[i]=rand()%9+1;
+    }
+    bubble (a,n);
+    select (b,n);
+    cout<<"Time for some loot"<<endl;
+    cout<<"Enter a number between 1 and 9; if it matches the list then you get extra money."<<endl;
+    cin>>t;
+    if(found1==true){
+        cout<<"You guessed correctly"<<endl;
+        coins+=5;
+        cout<<"You now have: "<<coins<<" coins."<<endl;
+    }else{
+        cout<<"You guessed incorrectly"<<endl;
+        coins+=3;
+        cout<<"You now have: "<<coins<<" coins."<<endl;
+    }    
+    cout<<endl;
+    found1=linear(a,n,t);
+    cout<<"Enter a number between 1 and 9; if it matches the list then you get extra score."<<endl;
+    cin>>t;
+    found2=binary(b,n,t);
+    if(found2==true){
+        cout<<"You guessed correctly"<<endl;
+        score+=300;
+        cout<<"You now have: "<<score<<" Score points."<<endl;
+    }else{
+        cout<<"You guessed incorrectly"<<endl;
+        score+=100;
+        cout<<"You now have: "<<score<<" Score points."<<endl;
+    }   
+    cout << endl;
+}
+
+
+//The High-score function:
+void highscr(int score){
+    //Declaration of Variables
+    ifstream in;
+    ofstream out;
+    string name, name1, buffer=" ";
+    short score1;
+    
+    //Open High Score File
+    in.open("HighScores.dat");
+    in>>name1>>score1;
+    
+    in.close();
+    in.clear();
+    
+    if (score > score1){
+        cout<<endl;
+        cout<<"You beat the pervious high-score"<<endl;
+        cout<<"The pervious score was:" << endl;
+        cout<<score1<<" Points"<<endl;
+        cout<<"Your score is:"<<endl;
+        cout<<score<<" Points"<<endl;
+        out.open("HighScores.dat");
+        //Change in high score
+        cout<<"Input you name:";
+        cin >> name;
+        out<<name<<buffer<<score;
+        cout<<endl<<endl<<endl<< "Final score summer:"<<endl;
+        cout<<name<<"   "<<score<<" Points"<<endl;
+        out.close();
+        out.clear();
+    }else{
+        cout << "You didn't beat the pervious high-score"<<endl;
+        cout<<name1<<"   "<< score1 <<endl;
+    }    
+}
+
+//The sorting algorithms:
+//Bubble sort with arrays
+void bubble(int a[], int n){
+    bool swap;
+    int temp;
+    do{
+        swap = false;
+        for(int i=0; i<(n-1); i++){
+            if (a[i]>a[i+1]){
+                temp = a[i];
+                a[i] = a[i+1];
+                a[i+1] = temp;
+                swap = true;
+            }
+        }
+    }while(swap);
+}
+
+//Bubble sort with vector:
+void bubble(vector<short> &a, int n){
+    bool swap;
+    int temp;
+    do{
+        swap = false;
+        for(int i=0; i<(n-1); i++){
+            if (a[i]>a[i+1]){
+                temp = a[i];
+                a[i] = a[i+1];
+                a[i+1] = temp;
+                swap = true;
+            }
+        }
+    }while(swap);
+}
+
+//Select sort with vector
+void select(vector<short> &b, int n){
+    int minI, minV;     //Minimum Index, Minimum Value
+    for(int s = 0; s < n-1; s++){
+        minI = s;
+        minV = b[s];
+        for(int i = s+1; i<n; i++){
+            if (b[i]<minV){
+                minV = b[i];
+                minI = i;
+            }
+        }
+        b[minI] = b[s];
+        b[s] = minV;
+    }
+}
+
+//The Mark sort
+void marksort(int a[],int size){
+    for(int i=0;i<size-1;i++){
+        for(int j=i+1;j<size;j++){
+            if(a[i]<a[j]){
+                a[i]=a[i]^a[j];
+                a[j]=a[i]^a[j];
+                a[i]=a[i]^a[j];
+            }
+        }
+    }
+}
+
+//Searching algorithm:
+//Linear search:
+bool linear(vector<short> &a, int n, int t){
+    for (int i=0; i<n; i++){
+        if (t == a[i]) return true;
+    }
+    return false;
+}
+
+//Binary Search
+bool binary(vector<short> &a, int n, int t){
+    int first = 0,             // First array element       
+        last = 11 - 1,         // Last array element       
+        middle,                // Mid point of search       
+        pos = -1;              // Position of search value
+    do{ 
+        middle = (first+last)/2;    //Calculate the middle point
+        if (a[middle]==t){
+            pos = middle;
+            return true;
+        }
+        else if (a[middle] > t) last = middle-1;
+        else first = middle+1;
+    }while (first <= last);
+    return false;
 }

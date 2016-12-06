@@ -19,18 +19,18 @@ int main(int argc, char** argv) {
     ifstream in;
     ofstream out;
     string name, space;
-    short score;
+    short score, score1;
     
     //Open High Score File
     in.open("HighScores.dat");
     in>>name>>score;
-    cout<<name<<"   "<< score <<endl;
+    cout<<name<<"   "<< score1 <<endl;
     
     in.close();
     in.clear();
     out.open("HighScores.dat");
     //Change in high score
-    name="Jason";
+    name="Jason3";
     space=" ";
     score=433;
     out<<name<<space<<score;
