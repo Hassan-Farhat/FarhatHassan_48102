@@ -50,8 +50,8 @@ char clsslct ();
 char spType(int);
 bool isdodge (int [],int,int);
 bool isswin  (int[], int[], int &);
-bool islinear (vector<short> &, int, int);
-bool isbinary (vector<short> &, int, int);
+bool islinear (vector<short>, int, int);
+bool isbinary (vector<short>, int, int);
 int  fight(int[], int[], int &, int = 3);
 short  dmg(int, char, char, float);
 short  mdmg(int, char, char, float);
@@ -595,7 +595,7 @@ char spType(int spawn){
 //         spawn: The type of monster that will spawn
 //          prow: The players row coordinate
 //          pcol: The players col coordinates
-//Output:   returns a specific character
+//Output:   pmap, map
 //******************************************************************************
 void fillmap(char pmap[][MAPCOL], char map[][MAPCOL], int spawn, int prow, int pcol){
     for (int i=0; i<7; i++){ //Loops that fills the map with characters
@@ -619,7 +619,17 @@ void fillmap(char pmap[][MAPCOL], char map[][MAPCOL], int spawn, int prow, int p
     }
 }
 
-//Movement function:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//***************************  movement  ***************************************
+//Purpose:  Allows player movement
+//Inputs:   pmap: The player map array
+//          move: Variable used for player movement
+//          prow: The players row coordinate
+//          pcol: The players col coordinates
+//           mon: the monster type        
+//Output:   prow, pcol, mon, pmap
+//******************************************************************************
 void movemnt(char pmap[][MAPCOL], string move, int &prow, int &pcol, char &mon){
     do{
         cout<<"Type in the direction of your turn (up,left,right)"<<endl;
@@ -638,7 +648,13 @@ void movemnt(char pmap[][MAPCOL], string move, int &prow, int &pcol, char &mon){
     pmap[prow][pcol] = 'P'; //Set player location
 }
 
-//Monster class setter:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//*******************************  who  ****************************************
+//Purpose:  Sends back the name of the monster class 
+//Inputs:   cClass      
+//Output:   return class type in written text
+//******************************************************************************
 string who(char cClass){
     //Determine the monster's character and return its class type.
     if (cClass == '*') return "Holy";
@@ -648,7 +664,13 @@ string who(char cClass){
 }
 
 //Battle Functions:
-//Wins:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//*****************************  fight  ****************************************
+//Purpose:  Fills the map array with chars 
+//Inputs:   cClass      
+//Output:   return class type in written text
+//******************************************************************************
 int  fight(int pD[],int cD[],int &cWins,int m){
     int pWins=0;    //Player wins
         cWins=0;    //Computer wins
@@ -663,7 +685,20 @@ int  fight(int pD[],int cD[],int &cWins,int m){
     return pWins;
 }
 
-//Fill the roll arrays:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//*****************************  roll  ****************************************
+//Purpose:  Fill in the roll arrays
+//Inputs:   spD: Array for special dice of the player
+//           sn: The utilization of the spD.
+//           pD: Array for the normal dice of the player
+//            n: The utilization of the pD.
+//          scD: Array for special dice of the player
+//           sm: The utilization of the scD.
+//           cD: Array for the normal dice of the player
+//            m: The utilization of the cD.
+//Output:   spD,pD,scD,cD
+//******************************************************************************
 void roll(int spD[],int sn,int pD[],int n,int scD[],int sm,int cD[],int m){
     //Fill the dice arrays 
     for (int i=0; i<sn; i++)spD[i]=rand()%12+1;
@@ -672,7 +707,14 @@ void roll(int spD[],int sn,int pD[],int n,int scD[],int sm,int cD[],int m){
     for (int i=0; i<m; i++)cD[i]=rand()%12+1;
 }
 
-//Print the normal roll arrays:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//***************************  pntroll  ****************************************
+//Purpose:  Print the roll arrays
+//Inputs:   pD : The player normal dice array
+//          cD : The computer's normal dice array
+//Output:   pD,cD
+//******************************************************************************
 void pntroll(int pD[],int cD[], int m){
     //Print the normal dice.
     cout << "            NORMAL DICE" << endl;
@@ -683,7 +725,14 @@ void pntroll(int pD[],int cD[], int m){
     cout<<endl;
 }
 
-//Print the special roll arrays:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//***************************  pntsrol  ****************************************
+//Purpose:  Print the special roll arrays
+//Inputs:   spD: Array for special dice of the player
+//          scD: Array for special dice of the player
+//Output:   spD,scD
+//******************************************************************************
 void pntsrol(int spD[],int scD[], int m){
     //Print the special dice.
     cout <<"            SPECIAL DICE" << endl;
@@ -695,7 +744,16 @@ void pntsrol(int spD[],int scD[], int m){
 }
 
 
-//Player damage calculation:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//*****************************  dmg  ******************************************
+//Purpose:  Determine how much damage will be dealt
+//Inputs:   wins: The number of time the player won a roll
+//        pClass: The player's class
+//        cClass: The computer's class
+//        pAttck: The players usable attack value
+//Output:   returns the amount of damage that will be dealt
+//******************************************************************************
 short  dmg(int wins, char pClass, char cClass, float pAttck){
     int damage = wins * pAttck;  //The damage that will be dealt.
     if (pClass=='D' && cClass=='*') return damage/2;      //Return the damage value          
@@ -707,7 +765,16 @@ short  dmg(int wins, char pClass, char cClass, float pAttck){
     else return damage;                                   //Return the damage value 
 }
 
-//Monster damage calculation:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//*****************************  mdmg  *****************************************
+//Purpose:  Determine how much damage will be dealt
+//Inputs:   wins: The number of time the monster won a roll
+//        pClass: The player's class
+//        cClass: The computer's class
+//        mAttck: The monster's attack value
+//Output:   returns the amount of damage that will be dealt
+//******************************************************************************
 short  mdmg(int wins, char pClass, char cClass, float mAttck){
     int damage = (wins * mAttck + 0.5);  //The damage that will be dealt.
     if (cClass=='#' && pClass=='H') return damage/2;      //Return the damage value
@@ -719,7 +786,19 @@ short  mdmg(int wins, char pClass, char cClass, float mAttck){
     else return damage;                                   //Return the damage value
 }
 
-//Determine who wins:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//****************************  whowins  ***************************************
+//Purpose:  Determine who wins the fight
+//Inputs:  pwins: The number of time the player won a roll
+//         cwins: The number of time the monster won a roll
+//        health: The player's health
+//       mhealth: The monster's health
+//        pClass: The player's class
+//        cClass: The computer's class
+//        mAttck: The monster's attack value
+//Output:   health, mhealth
+//******************************************************************************
 void whowins(int pWins,int cWins,int &health, int &mhealth,char pClass,char cClass,float pAttck,float mAttck){
     if (pWins>cWins){ //If the player has more round wins
         //Deal damage to the monster
@@ -737,7 +816,18 @@ void whowins(int pWins,int cWins,int &health, int &mhealth,char pClass,char cCla
     }
 }
 
-//Player inventory:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//****************************  invtry  ***************************************
+//Purpose:  Display and allow the player to use items they purchased
+//Inputs:  it: Boolean array that stores the active values of the item
+//      items: String array that stores the names of the items
+//          n: The utilization of the arrays
+//     cClass: The Computers class
+//     health: The player's health
+//    mHealth: The monster's health
+//Output:   health, mhealth
+//******************************************************************************
 void invtry(bool it[], string items[], short n, char cClass, int &health, int &mHealth){
     string use;   //Inventory user value
     cout << "Input the name exactly of the item you would like to use" << endl;
@@ -784,7 +874,15 @@ void invtry(bool it[], string items[], short n, char cClass, int &health, int &m
     }
 }
 
-//Dodge chance:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//****************************  isdodge  ***************************************
+//Purpose:  Determine if the player dodged
+//Inputs:   skills: The array that stores the players skills values
+//            ddge: Variable that uses a random number used to determine if the player dodges
+//          pAglty: The player's modifier value for agility
+//Output:   returns a true or false boolean . (the player dodges or they don't)
+//******************************************************************************
 bool isdodge (int skills[], int ddge,int pAglty){
     ddge = rand()%99+1+(skills[2]/2); //Calculate dodge chance
     if (ddge >= pAglty){ //If dodge chance is greater than agility 
@@ -796,7 +894,15 @@ bool isdodge (int skills[], int ddge,int pAglty){
     }
 }
 
-//Calculate the special wins:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//****************************  isswin  ***************************************
+//Purpose:  Determine of the player won the special rolls
+//Inputs:  spDice: Array for the player's special dice
+//         scDice: Array for the computer's special dice
+//         spWins: the player's special wins
+//Output:   returns a true or false boolean value
+//******************************************************************************
 bool isswin (int spDice [],int scDice [],int &spWins){
     spWins=0;   //Set the wins to 0
     for (int i=0; i<2; i++){ //Loop to check each dice.
@@ -807,16 +913,30 @@ bool isswin (int spDice [],int scDice [],int &spWins){
     else return false;      //Else return false
 }
 
-//Special attack function:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//*****************************  spAtck  ***************************************
+//Purpose:  Reduce the monster's health by half
+//Inputs:  mhealth : The monsters health
+//Output:   mhealth
+//******************************************************************************
 void spAtck (int &mhealth){
-    int x;  //Storage value
     cout<<"You unleash a powerful spell and remove half you enemies health"<<endl;
     //Remove half of the monsters health.
-    x = mhealth/2; 
-    mhealth -= x; 
+    mhealth = mhealth/2; 
 }
 
-//The loot function:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//******************************  loot  ****************************************
+//Purpose:  Determine how much loot the player gets 
+//Inputs:   a : Vector that stores random number from with number from 1 to 9
+//          b : Vector that stores random number from with number from 1 to 9
+//          pLuck : The player Luck modifier 
+//          scores: The player's score
+//          coins : The player's amount of coins
+//Output:   a,b,score,coins
+//******************************************************************************
 void loot (vector<short> &a,vector<short> &b,int pLuck,int &score,int &coins){
     int x = rand()%99 + 1, 
             n, //Size of vector utilization
@@ -868,7 +988,13 @@ void loot (vector<short> &a,vector<short> &b,int pLuck,int &score,int &coins){
 }
 
 
-//The High-score function:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//***************************  highscr  ****************************************
+//Purpose:  Display the player's score
+//Inputs:   score : Player's score
+//Output:   None
+//******************************************************************************
 void highscr(int score){
     //Declaration of Variables
     ifstream in;
@@ -914,7 +1040,14 @@ void highscr(int score){
 }
 
 //The sorting algorithms:
-//Bubble sort with arrays
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//****************************  Bubble  ****************************************
+//Purpose:  Sort the random list
+//Inputs:   a: The array that holds dice
+//          n: The utilization of the array
+//Output:   a
+//******************************************************************************
 void bubble(int a[], int n){
     bool swap;
     int temp;
@@ -931,7 +1064,14 @@ void bubble(int a[], int n){
     }while(swap);
 }
 
-//Bubble sort with vector:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//****************************  Bubble  ****************************************
+//Purpose:  Sort the random list
+//Inputs:   a: The random list (vector)
+//          n: The utilization of the array
+//Output:   a
+//******************************************************************************
 void bubble(vector<short> &a, int n){
     bool swap;
     int temp;
@@ -948,7 +1088,14 @@ void bubble(vector<short> &a, int n){
     }while(swap);
 }
 
-//Select sort with vector
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//****************************  select  ****************************************
+//Purpose:  Sort the random list
+//Inputs:   b: The random list (vector)
+//          n: The utilization of the array
+//Output:   a
+//******************************************************************************
 void select(vector<short> &b, int n){
     int minI, minV;     //Minimum Index, Minimum Value
     for(int s = 0; s < n-1; s++){
@@ -965,7 +1112,14 @@ void select(vector<short> &b, int n){
     }
 }
 
-//The Mark sort
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//****************************  marksort  ****************************************
+//Purpose:  Sort the random list
+//Inputs:   a: The array that holds dice
+//          size: The utilization of the array
+//Output:   a
+//******************************************************************************
 void marksort(int a[],int size){
     for(int i=0;i<size-1;i++){
         for(int j=i+1;j<size;j++){
@@ -979,16 +1133,32 @@ void marksort(int a[],int size){
 }
 
 //Searching algorithm:
-//Linear search:
-bool islinear(vector<short> &a, int n, int t){
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//***************************  islinear  ***************************************
+//Purpose:  Sort the random list
+//Inputs:   a: The random list (vector)
+//          n: The utilization of the array
+//          t: The player's guess
+//Output:   return true, or false
+//******************************************************************************
+bool islinear(vector<short> a, int n, int t){
     for (int i=0; i<n; i++){
         if (t == a[i]) return true;
     }
     return false;
 }
 
-//Binary Search
-bool isbinary(vector<short> &a, int n, int t){
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//***************************  isbinear  ***************************************
+//Purpose:  Sort the random list
+//Inputs:   a: The random list (vector)
+//          n: The utilization of the array
+//          t: The player's guess
+//Output:   return true, or false
+//******************************************************************************
+bool isbinary(vector<short> a, int n, int t){
     int first = 0,             // First array element       
         last = 11 - 1,         // Last array element       
         middle,                // Mid point of search       
