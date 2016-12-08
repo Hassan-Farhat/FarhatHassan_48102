@@ -517,17 +517,20 @@ void fillmap(char pmap[][MAPCOL], char map[][MAPCOL], int spawn, int prow, int p
 
 //Movement function:
 void movemnt(char pmap[][MAPCOL], string move, int &prow, int &pcol, char &mon){
-    do{ //The movement loop.
-        do{
-            cout<<"Type in the direction of your turn (up,left,right)"<<endl;
-            cin>>move; //User inputs their move
-        }while(move!="up" && move!="left" && move!="right");
-        //Determine player location on map
-        if (move == "up" || move == "Up") prow -= 1;
-        else if (move == "right" || move == "Right") pcol += 1;
-        else if (move == "left" || move == "Left") pcol -= 1;
-        mon = pmap[prow][pcol];
-    }while(pmap[prow][pcol]=='|');
+    do{
+        cout<<"Type in the direction of your turn (up,left,right)"<<endl;
+        cin>>move; //User inputs their move
+    }while(move!="up" && move!="left" && move!="right");
+    //Determine player location on map
+    if (move == "up" || move == "Up") prow -= 1;
+    else if (move == "right" || move == "Right") pcol += 1;
+    else if (move == "left" || move == "Left") pcol -= 1;
+    if (pmap[prow][pcol]=='|'){
+        if (move == "up" || move == "Up") prow += 1;
+        else if (move == "right" || move == "Right") pcol -= 1;
+        else if (move == "left" || move == "Left") pcol += 1;
+    }
+    mon = pmap[prow][pcol]; 
     pmap[prow][pcol] = 'P'; //Set player location
 }
 
