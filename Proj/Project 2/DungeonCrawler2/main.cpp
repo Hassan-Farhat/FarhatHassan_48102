@@ -250,7 +250,14 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-//Intro Screen:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//*************************   intro   ****************************************
+//Purpose:  Display the introduction screen
+//Inputs:   start
+//  start: a string used to start the game
+//Output:  None
+//******************************************************************************
 void intro (string start){
     cout << "    ==================================================================" << endl;
     cout << "                Welcome to Dungeon Crawler Version 2" << endl;
@@ -268,7 +275,14 @@ void intro (string start){
     cout << endl << endl << endl << endl << endl << endl << endl << endl;
 }
 
-//The instruction manual:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//*************************   instruc   ****************************************
+//Purpose:  Display the instructions of the game
+//Inputs:   start
+//  start: a string used to start the game
+//Output:  The users answer or reference value of start
+//******************************************************************************
 void instruc(string & start){
     cout<<"Welcome to Dungeon Crawler Version 2!"<<endl;
     cout<<"Here is a quick guide to teach you the basics of how your" 
@@ -288,7 +302,18 @@ void instruc(string & start){
 }
 
 //The Skill functions:
-//Primary skill function:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//***************************   skill   ****************************************
+//Purpose:  Allows the user to set up there skills
+//Inputs:  skills : An array that store the skill values
+//         skNames: An array that stores the skill names
+//          points: Number of spendable points
+//             min: The minimum number of points
+//               n: The utilized portion of the array.
+//          choice: The users selection for the skill
+//Output:  the new values of the skills
+//******************************************************************************
 void skill(int skills[], string skNames[], int points, int min, short n, short choice){
     cout << "This is the skill setup tree:" << endl 
     << "Here you will decide your attributes:" << endl << endl;
@@ -331,7 +356,15 @@ void skill(int skills[], string skNames[], int points, int min, short n, short c
     }while (points > 0);  //End of Skill Set-Up loop
 }
 
-//The skill tree:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//***************************   skTree   ***************************************
+//Purpose:  Displays the skills and their values
+//Inputs:  skills : An array that store the skill values
+//         skNames: An array that stores the skill names
+//               n: The utilized portion of the array.
+//Output:  None
+//******************************************************************************
 void skTree (int skills[], string skNames[], short n){
     //Display the skill tree
     for (int i=0;i<n;i++){
@@ -339,7 +372,17 @@ void skTree (int skills[], string skNames[], short n){
     }
 }
 
-//The skill point distributor:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//*************************   skillcal   ***************************************
+//Purpose:  Calculates the skill values based on user input
+//Inputs:   skills: An array that store the skill values
+//         skNames: An array that stores the skill names
+//          points: Number of spendable points
+//             min: The minimum number of points
+//          choice: The users selection for the skill
+//Output:  The new value of the skill 
+//******************************************************************************
 void skillcal (int skills[],string skNames[],int min,short choice,int &points){
     int x, remove, extra;       //x,remove, and extra are holder values.
     do{
@@ -371,7 +414,16 @@ void skillcal (int skills[],string skNames[],int min,short choice,int &points){
     }   //End of Check
 }
 
-//The health point distributor:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//*************************   skillcal   ***************************************
+//Purpose:  Calculates the health skill value
+//Inputs:   skills: An array that store the skill values
+//         skNames: An array that stores the skill names
+//          points: Number of spendable points
+//          choice: The users selection for the skill
+//Output:  The new value of the skill 
+//******************************************************************************
 void skillcal (int skills[], string skNames[], short choice, int &points){
     int x; //A holder value
     do{
@@ -383,7 +435,19 @@ void skillcal (int skills[], string skNames[], short choice, int &points){
     points -= x;             //Remove added points from total.
 }
 
-//Modifiers:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//*****************************  mods  *****************************************
+//Purpose:  Calculates the skill values based on user input
+//Inputs:   skills: An array that store the skill values
+//              it: A boolean array that store the states of the items
+//         pAttack: The players usable attack value
+//          pAglty: The player modifier value for dodge
+//           pLuck: The player modifier value for luck
+//          health: The player's health
+//          effigy: This variable store the players health and is a usable item
+//Output:  All the modifier values that are used in the game
+//******************************************************************************
 void mods (int skills[],bool it[],float &pAttck,int &pAglty,int &pLuck,int &health, int &effigy){
     //Set health, attack, agility and luck based on points and items
     health = skills[3];
@@ -397,7 +461,19 @@ void mods (int skills[],bool it[],float &pAttck,int &pAglty,int &pLuck,int &heal
     if(it[5] == false) pAttck = (skills[1]+1)/ 2;
 }
 
-//The Shop Functions:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//*****************************  shop  *****************************************
+//Purpose:  A shop where the user can buy items from
+//Inputs:   skills: An array that store the skill values
+//              it: A boolean array that store the states of the items
+//           items: An array that stores the names of each item
+//               n: Utilization of the array
+//          select: An int used for user select
+//           coins: The amount of coins the use has
+//          health: The players health
+//Output:  The item arrays, an updated player wallet, and updated player health
+//******************************************************************************
 void shop(bool it[],string items[],int n,int select,int &coins,int &health){
     do{ //Start of shop loop
         //Display the store
@@ -444,7 +520,13 @@ void shop(bool it[],string items[],int n,int select,int &coins,int &health){
     }while(!(coins < 5) && !(select==10)); //End of shop loop
 }
 
-//Player Class Selection:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//***************************  clsslct  ****************************************
+//Purpose:  Allow the player to choose their class
+//Inputs:   None
+//Output:  returns the players class
+//******************************************************************************
 char clsslct(){
     string clss; //Class selection value
     cout <<"What class would you like to use?"<<endl;
@@ -463,7 +545,13 @@ char clsslct(){
 }
 
 //Map Functions:
-//Create the map:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//****************************  crtmap  ****************************************
+//Purpose:  Create the standard map
+//Inputs:   map:a character array that stores the standard game map
+//Output:   The map array (reference)
+//******************************************************************************
 void crtmap(char map[][MAPCOL]){
     //Fill the standard map
     for (int i=0; i<7; i++){
@@ -482,7 +570,13 @@ void crtmap(char map[][MAPCOL]){
     }
 }
 
-//Spawn type/fill function:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//****************************  spType  ****************************************
+//Purpose:  Determine what monster ill spawn
+//Inputs:   spawn: The type of monster that will spawn
+//Output:   returns a specific character
+//******************************************************************************
 char spType(int spawn){
     //Fill the standard map with Monsters
    spawn = rand()%5;
@@ -492,7 +586,17 @@ char spType(int spawn){
    else if (spawn == 3) return '=';
 }
 
-//Fill the map with monsters:
+//000000011111111112222222222333333333344444444445555555555666666666677777777778
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+//****************************  fillmap  ***************************************
+//Purpose:  Fills the map array with chars 
+//Inputs:   pmap: The player map array
+//           map: The standard map array
+//         spawn: The type of monster that will spawn
+//          prow: The players row coordinate
+//          pcol: The players col coordinates
+//Output:   returns a specific character
+//******************************************************************************
 void fillmap(char pmap[][MAPCOL], char map[][MAPCOL], int spawn, int prow, int pcol){
     for (int i=0; i<7; i++){ //Loops that fills the map with characters
             for (int k=0; k<9; k++){
