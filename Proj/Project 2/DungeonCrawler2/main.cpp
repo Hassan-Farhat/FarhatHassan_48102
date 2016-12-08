@@ -48,10 +48,10 @@ void highscr (int);
 void whowins(int, int, int &, int &, char, char, float, float);
 char clsslct ();
 char spType(int);
-bool dodge (int [],int,int);
-bool swin  (int[], int[], int &);
-bool linear (vector<short> &, int, int);
-bool binary (vector<short> &, int, int);
+bool isdodge (int [],int,int);
+bool isswin  (int[], int[], int &);
+bool islinear (vector<short> &, int, int);
+bool isbinary (vector<short> &, int, int);
 int  fight(int[], int[], int &, int = 3);
 short  dmg(int, char, char, float);
 short  mdmg(int, char, char, float);
@@ -188,7 +188,7 @@ int main(int argc, char** argv) {
                     if ((counter % 3)==0 ){ //If counter is divisible by 3 then use special dice
                        marksort(spDice,sn);         //Sort the player's special dice
                        bubble(scDice,sm);           //Sort the computer's special dice
-                       spWin=swin(spDice,scDice,spWins); //Compare the dice and determine who wins each round
+                       spWin=isswin(spDice,scDice,spWins); //Compare the dice and determine who wins each round
                        pntsrol(spDice,scDice);           //Print the dice
                        //Display the wins
                        cout<<"You won: "<<spWins<<" rolls"<<endl;
@@ -203,7 +203,7 @@ int main(int argc, char** argv) {
                 }else if (input=="inventory"){ //If the player input "inventory"
                     invtry(it,items,n,cClass,health,mhealth); //Player inventory
                 }else{ //If the player input dodge.
-                    dChance = dodge (skills,ddge,pAglty);   //Player dodge function
+                    dChance = isdodge (skills,ddge,pAglty);   //Player dodge function
                     roll(spDice,sn,pDice,n,scDice,sm,cDice,m);  //Roll the player and computer dice
                     marksort(pDice,n);      //Sort the player's normal dice
                     marksort(cDice,m);      //Sort the computer's normal dice
@@ -681,7 +681,7 @@ void invtry(bool it[], string items[], short n, char cClass, int &health, int &m
 }
 
 //Dodge chance:
-bool dodge (int skills[], int ddge,int pAglty){
+bool isdodge (int skills[], int ddge,int pAglty){
     ddge = rand()%99+1+(skills[2]/2); //Calculate dodge chance
     if (ddge >= pAglty){ //If dodge chance is greater than agility 
         cout << "You successfully dodged." << endl;
@@ -693,7 +693,7 @@ bool dodge (int skills[], int ddge,int pAglty){
 }
 
 //Calculate the special wins:
-bool swin (int spDice [],int scDice [],int &spWins){
+bool isswin (int spDice [],int scDice [],int &spWins){
     spWins=0;   //Set the wins to 0
     for (int i=0; i<2; i++){ //Loop to check each dice.
         if (spDice[i]>scDice[i]) spWins+=1; //If user wins add to player wins 
@@ -732,7 +732,7 @@ void loot (vector<short> &a,vector<short> &b,int pLuck,int &score,int &coins){
     cout<<"Enter a number between 1 and 9; if it matches the list then you get extra money."<<endl;
     cin>>t;
     //Search the list
-    found1=linear(a,n,t);
+    found1=islinear(a,n,t);
     if(found1==true){ //If first guess was correct
         //Add 5 coins to the total coin amount.
         cout<<"You guessed correctly"<<endl;
@@ -748,7 +748,7 @@ void loot (vector<short> &a,vector<short> &b,int pLuck,int &score,int &coins){
     cout<<"Enter a number between 1 and 9; if it matches the list then you get extra score."<<endl;
     cin>>t;
     //Search the list
-    found2=binary(b,n,t);
+    found2=isbinary(b,n,t);
     if(found2==true){ //If second guess was correct
         //Add 300 coins to the total coin amount.
         cout<<"You guessed correctly"<<endl;
@@ -876,7 +876,7 @@ void marksort(int a[],int size){
 
 //Searching algorithm:
 //Linear search:
-bool linear(vector<short> &a, int n, int t){
+bool islinear(vector<short> &a, int n, int t){
     for (int i=0; i<n; i++){
         if (t == a[i]) return true;
     }
@@ -884,7 +884,7 @@ bool linear(vector<short> &a, int n, int t){
 }
 
 //Binary Search
-bool binary(vector<short> &a, int n, int t){
+bool isbinary(vector<short> &a, int n, int t){
     int first = 0,             // First array element       
         last = 11 - 1,         // Last array element       
         middle,                // Mid point of search       
