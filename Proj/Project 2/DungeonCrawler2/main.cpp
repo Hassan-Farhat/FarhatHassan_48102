@@ -33,7 +33,6 @@ void skill (int [], string [], int, int, short, short);
 void crtmap(char[][MAPCOL]);
 void invtry(bool [], string [], short, char, int &, int &);
 void fillmap(char[][MAPCOL], char[][MAPCOL], int, int, int);
-void movemnt(char[][MAPCOL],string, int &, int &, char &);
 void shop (bool[],string[],int,int,int &, int &);
 void roll(int[], int, int[], int, int[], int, int[], int);
 void marksort(int[], int);
@@ -53,6 +52,7 @@ bool isswin  (int[], int[], int &);
 bool islinear (vector<short>, int, int);
 bool isbinary (vector<short>, int, int);
 int  fight(int[], int[], int &, int = 3);
+int movemnt(char[][MAPCOL],string, int &, int &, char &);
 short  dmg(int, char, char, float);
 short  mdmg(int, char, char, float);
 string who(char);
@@ -106,7 +106,8 @@ int main(int argc, char** argv) {
         mhealth,health,               //Monster health and player health.
         ddge,                         //Player dodge chance.
         cWins,pWins,                  //Computer and player normal wins.
-        spWins,scWins;                //Computer and player special wins.
+        spWins,scWins,                //Computer and player special wins.
+        turns;                        //Number of times the user moves
     bool spWin;                         //Special win check.
     float pAttck, mAttck=1.5;           //The player and monster attack value.
     bool dChance = false, boss=false;   //The dodge check, boss check.
@@ -150,7 +151,7 @@ int main(int argc, char** argv) {
         //Fill the map with characters.
         fillmap(pmap,map,spawn,prow,pcol);
         //Player movement.
-        movemnt(pmap,move,prow,pcol,cClass);
+        turns = movemnt(pmap,move,prow,pcol,cClass);
         
         //Battle starts here
         if (cClass=='='||cClass=='*'||cClass=='#'||cClass=='B'){ //Check the character of the map
@@ -240,6 +241,7 @@ int main(int argc, char** argv) {
         cout<<endl<<endl<<endl<< "Congratulations you won." << endl;
         //Display the high-score and what the player's skills were.
         highscr(score);
+        cout << "It took you: "<<turns<<" moves to finish the game."<<endl;
         cout << "Your winning skill set up:" << endl;
         skTree(skills,skNames,mn);
     }else{ // If the player lost.
@@ -630,7 +632,8 @@ void fillmap(char pmap[][MAPCOL], char map[][MAPCOL], int spawn, int prow, int p
 //           mon: the monster type        
 //Output:   prow, pcol, mon, pmap
 //******************************************************************************
-void movemnt(char pmap[][MAPCOL], string move, int &prow, int &pcol, char &mon){
+int movemnt(char pmap[][MAPCOL], string move, int &prow, int &pcol, char &mon){
+    static int turns = 0;
     do{
         cout<<"Type in the direction of your turn (up,left,right)"<<endl;
         cin>>move; //User inputs their move
@@ -646,6 +649,8 @@ void movemnt(char pmap[][MAPCOL], string move, int &prow, int &pcol, char &mon){
     }
     mon = pmap[prow][pcol]; 
     pmap[prow][pcol] = 'P'; //Set player location
+    turns+=1;
+    return turns;
 }
 
 //000000011111111112222222222333333333344444444445555555555666666666677777777778
@@ -990,7 +995,7 @@ void loot (vector<short> &a,vector<short> &b,int pLuck,int &score,int &coins){
 
 //000000011111111112222222222333333333344444444445555555555666666666677777777778
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
-//***************************  highscr  ****************************************
+//*****************************  highscr  **************************************
 //Purpose:  Display the player's score
 //Inputs:   score : Player's score
 //Output:   None
@@ -1026,7 +1031,7 @@ void highscr(int score){
         out<<name<<buffer<<score;
         //Display the player's score.
         cout<<endl<<endl<<endl<< "Final score summer:"<<endl;
-        cout<<name<<"   "<<score<<" Points"<<endl;
+        cout<<name<<"   "<<sqrt(score)<<" Points"<<endl;
         //Close and clear the file
         out.close();
         out.clear();
@@ -1035,7 +1040,7 @@ void highscr(int score){
         cout << "You didn't beat the pervious high-score"<<endl;
         cout<<"Input you name:";
         cin >> name;
-        cout<<name1<<"   "<< score1 <<endl;
+        cout<<name1<<"   "<< sqrt(score1) <<endl;
     }    
 }
 
