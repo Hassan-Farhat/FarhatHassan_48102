@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Hassan Farhat
  * Created on December 6, 2016, 4:19 PM
- * Purpose: Alpha test for the game.
+ * Purpose: This is a dungeon crawler game
  */
 
 #include <iostream>   //Input/Output objects
@@ -249,7 +249,7 @@ int main(int argc, char** argv) {
     }
     
     //EXIT THE PROGRAM.
-    return 0;
+    exit(1);
 }
 
 //000000011111111112222222222333333333344444444445555555555666666666677777777778
