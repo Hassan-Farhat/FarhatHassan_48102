@@ -1031,7 +1031,7 @@ void highscr(int score){
         //Open the file
         out.open("HighScores.dat");
         //Change the name and high score
-        cout<<"Input you name:";
+        cout<<"Input your first name:";
         cin >> name;
         out<<name<<buffer<<score;
         //Display the player's score.
@@ -1044,7 +1044,7 @@ void highscr(int score){
     }else{//Else 
         //User enters name and their score is displayed
         cout << "You didn't beat the pervious high-score"<<endl;
-        cout<<"Input you name:";
+        cout<<"Input your first name:";
         cin >> name;
         cout<<setprecision(2)<<showpoint<<fixed<<endl;
         cout<<name1<<"   "<<static_cast<float>(score)<<endl;
