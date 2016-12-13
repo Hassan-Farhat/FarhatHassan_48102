@@ -10,8 +10,8 @@
 #include <string>     //String Library
 #include <cstdlib>    //Random number
 #include <ctime>      //Used to set random number seed
-#include <iomanip>    //Used for in the scoreboard
-#include <cmath>      //Used in calculating final score
+#include <iomanip>    //Used in the scoreboard
+#include <cmath>      //Used in calculating counter attack
 #include <vector>     //Vector
 
 using namespace std;
@@ -115,7 +115,6 @@ int main(int argc, char** argv) {
     //High Score Variables:
     string name, buffer;          //The player's name and the file buffer.  
     
-    
     //The Intro-screen:
     intro (start);
     
@@ -141,6 +140,10 @@ int main(int argc, char** argv) {
     
     //Modifiers
     mods (skills, it, pAttck, pAglty, pLuck, health, effigy);
+    
+    //The Player into screen.
+    cout<<"Hello adventurer! Your objective is to get to that B on the map."<<endl;
+    cout<<"You may encounter some monster along the way, HAVE FUN!!"<<endl;
     
     do{ //Start of the game loop
         counter = 0;        //Special skill counter starts here
@@ -211,7 +214,7 @@ int main(int argc, char** argv) {
                     pWins = fight(pDice,cDice,cWins);   //Compare the dice and determine who won.
                     ddge=rand()%99+1;                   //Counter attack chance.
                     if(dChance == true && ddge>=50){ //Counter attack was successful.
-                        pWins += 3;
+                        pWins = pow((pWins+2),2);
                         //Deal damage to the monster.
                         mhealth = mhealth - dmg(pWins, pClass, cClass, pAttck);
                         cout<<"You dodge safely and land a powerful hit"<<endl;
@@ -227,7 +230,7 @@ int main(int argc, char** argv) {
                 }
                 if(it[4]==true && health <= 0){ //If the player purchased the effigy items and died
                         health = effigy; //Reset the players health
-                    }
+                }
                 if (mhealth <= 0){  //Once the player has killed the monster.
                     //Player picks up loot.
                     loot (coin, point, pLuck, score, coins);
@@ -327,7 +330,7 @@ void skill(int skills[], string skNames[], int points, int min, short n, short c
         cout << "The max for each skill is 10"<<endl;
         do{ 
             cin >> choice;  //User inputs their choice
-        }while (choice > 4);
+        }while (choice > 4 || choice < 1);
         switch (choice){        //Send user to the correct skill based on input.
             case 1:             //User selected agility.
                 min=6;          //Set the minimum value for the skill.
@@ -534,11 +537,13 @@ char clsslct(){
     cout <<"What class would you like to use?"<<endl;
     cout <<"1. Paladin      (Holy type class)"<<endl
          <<"2. Necromancer  (Ghost type class)"<<endl
-         <<"3. Demon-Hunter (Dark type class)"<<endl;
+         <<"3. Demon Hunter (Dark type class)"<<endl;
+    cin.ignore();
+    cin.clear();
     do{
         cout << "Please type in the full name of the class" << endl;
-        cin >> clss; //User input their class
-    } while(clss!="Paladin" && clss!="Necromancer" && clss!="Demon-Hunter");
+        getline(cin,clss); //User input their class
+    } while(clss!="Paladin" && clss!="Necromancer" && clss!="Demon Hunter");
     
     //Return the class
     if (clss == "Paladin") return 'H';
@@ -1031,7 +1036,8 @@ void highscr(int score){
         out<<name<<buffer<<score;
         //Display the player's score.
         cout<<endl<<endl<<endl<< "Final score summer:"<<endl;
-        cout<<name<<"   "<<sqrt(score)<<" Points"<<endl;
+        cout<<setprecision(2)<<showpoint<<fixed<<endl;
+        cout<<name<<"   "<<static_cast<float>(score)<<" Points"<<endl;
         //Close and clear the file
         out.close();
         out.clear();
@@ -1040,7 +1046,8 @@ void highscr(int score){
         cout << "You didn't beat the pervious high-score"<<endl;
         cout<<"Input you name:";
         cin >> name;
-        cout<<name1<<"   "<< sqrt(score1) <<endl;
+        cout<<setprecision(2)<<showpoint<<fixed<<endl;
+        cout<<name1<<"   "<<static_cast<float>(score)<<endl;
     }    
 }
 
